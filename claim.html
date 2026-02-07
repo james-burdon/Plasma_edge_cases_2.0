@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claim Your Crypto - Plasma</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🎁 You've Received Crypto!</h1>
+</header>
+
+<main>
+  <section class="form-section">
+    <div id="loadingStatus">
+      <p>⏳ Loading your gift...</p>
+    </div>
+
+    <div id="claimInfo" style="display: none;">
+      <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <h2>💰 <span id="amountDisplay">0</span> XPL</h2>
+        <p id="messageDisplay" style="margin: 10px 0;"></p>
+      </div>
+
+      <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h3>Choose how to receive your funds:</h3>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <button id="createAccountBtn" class="primary-button" style="width: 100%; padding: 15px; margin-bottom: 10px;">
+          🆕 Create New Plasma Account (Recommended)
+        </button>
+        <button id="useExistingBtn" class="secondary-button" style="width: 100%; padding: 15px;">
+          🔑 I Have My Own Wallet Address
+        </button>
+      </div>
+
+      <!-- New Account Creation Form -->
+      <div id="newAccountForm" style="display: none;">
+        <h3>Create Your Account</h3>
+        <form id="registerClaimForm">
+          <label>Forename</label>
+          <input id="forename" type="text" required>
+
+          <label>Surname</label>
+          <input id="surname" type="text" required>
+
+          <label>Username</label>
+          <input id="username" type="text" required>
+
+          <label>Password</label>
+          <input id="password" type="password" required>
+
+          <label>
+            <input type="checkbox" required>
+            I agree to the Terms and Conditions
+          </label>
+
+          <button type="submit">Create Account & Claim Funds</button>
+        </form>
+      </div>
+
+      <!-- Existing Wallet Form -->
+      <div id="existingWalletForm" style="display: none;">
+        <h3>Enter Your Wallet Address</h3>
+        <form id="existingClaimForm">
+          <label>Wallet Address</label>
+          <input id="walletAddress" type="text" placeholder="0x..." required>
+
+          <button type="submit">Claim to This Address</button>
+        </form>
+      </div>
+
+      <div id="claimStatus" style="margin-top: 20px;"></div>
+    </div>
+
+    <div id="errorDisplay" style="display: none; color: red; padding: 20px;">
+      <h3>❌ Error</h3>
+      <p id="errorMessage"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Plasma</p>
+</footer>
+
+<script type="module" src="claim.js"></script>
+</body>
+</html>

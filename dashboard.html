@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plasma Wallet Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Your Plasma Wallet</h1>
+</header>
+
+<main>
+  <section>
+    <div id="walletOutput" class="transfer-info">
+      Loading wallet...
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Plasma</p>
+</footer>
+
+<!-- EVERYTHING MERGED BELOW -->
+<script type="module">
+  console.log("✅ dashboard script loaded");
+
+  import {
+    Wallet,
+    JsonRpcProvider,
+    formatEther
+  } from "https://cdn.jsdelivr.net/npm/ethers@6.16.0/dist/ethers.min.js";
+
+  console.log("✅ ethers imported");
+
+  // Try to load custodial wallet from localStorage
+  let wallet_key;
+  let userProfile;
+
+  const storedWallet = localStorage.getItem("plasmaUserWallet");
+  const storedProfile = sessionStorage.getItem("plasmaUserProfile");
+
+  if (storedWallet) {
+    const walletData = JSON.parse(storedWallet);
+    wallet_key = walletData.privateKey;
+    console.log("🔑 Loaded custodial wallet");
+  } else {
+    // Fallback to demo wallet
+    wallet_key = "0x316a6df79c678f420a352b2ef577d4d16bd94462d9bb12b537b6e1360733ec61";
+    console.log("🔑 Using demo wallet");
+  }
+
+  if (storedProfile) {
+    userProfile = JSON.parse(storedProfile);
+    console.log("👤 User:", userProfile.username);
+  }
+
+  console.log("🔑 Wallet key length:", wallet_key.length);
+
+  // Connect to Plasma Testnet
+  const provider = new JsonRpcProvider("https://testnet-rpc.plasma.to");
+  console.log("🌐 Provider created");
+
+  // Load wallet
+  const wallet = new Wallet(wallet_key, provider);
+  console.log("👛 Wallet address:", wallet.address);
+
+  const output = document.getElementById("walletOutput");
+  if (!output) {
+    console.error("❌ walletOutput div not found");
+  } else {
+    console.log("✅ walletOutput div found");
+  }
+
+  async function updateBalance() {
+    try {
+      console.log("🔄 Fetching balance...");
+      const balanceWei = await provider.getBalance(wallet.address);
+      const balanceXPL = formatEther(balanceWei);
+
+      const greeting = userProfile
+        ? `<p><strong>Welcome, ${userProfile.forename} ${userProfile.surname}!</strong> (@${userProfile.username})</p>`
+        : '';
+
+      output.innerHTML = `
+        ${greeting}
+        <p><strong>Wallet:</strong><br>${wallet.address}</p>
+        <p><strong>Balance:</strong> ${balanceXPL} XPL</p>
+        <p><em>Last updated: ${new Date().toLocaleTimeString()}</em></p>
+        <p style="margin-top: 20px;">
+          <a href="send.html" style="padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">
+            Send Crypto Link
+          </a>
+        </p>
+      `;
+
+      console.log("✅ Balance updated:", balanceXPL);
+    } catch (err) {
+      console.error("❌ Balance fetch failed:", err);
+      output.innerText = "Failed to load wallet balance. Check console.";
+    }
+  }
+
+  // Run immediately
+  updateBalance();
+
+  // Poll every 5 seconds
+  setInterval(updateBalance, 5000);
+</script>
+
+</body>
+</html>

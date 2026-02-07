@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Send Crypto via Link - Plasma</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Send Crypto via Link</h1>
+</header>
+
+<main>
+  <section class="form-section">
+    <form id="sendForm">
+      <label>Recipient Email</label>
+      <input id="recipientEmail" type="email" required>
+
+      <label>Amount (XPL)</label>
+      <input id="amount" type="number" step="0.001" min="0.001" required>
+
+      <label>Message (optional)</label>
+      <textarea id="message" rows="3" placeholder="Add a personal message..."></textarea>
+
+      <label>Link Expiry</label>
+      <select id="expiry" required>
+        <option value="86400">24 hours</option>
+        <option value="259200">3 days</option>
+        <option value="604800">7 days</option>
+        <option value="2592000">30 days</option>
+      </select>
+
+      <button type="submit" id="sendButton">Create Escrow Link</button>
+    </form>
+
+    <div id="statusOutput" style="margin-top: 20px;"></div>
+    <div id="linkOutput" style="margin-top: 20px; display: none;"></div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Plasma</p>
+</footer>
+
+<script type="module" src="send.js"></script>
+</body>
+</html>

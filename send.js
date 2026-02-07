@@ -1,0 +1,122 @@
+import {
+  Wallet,
+  JsonRpcProvider,
+  parseEther,
+  Contract,
+  keccak256,
+  randomBytes,
+  hexlify
+} from "https://cdn.jsdelivr.net/npm/ethers@6.16.0/dist/ethers.min.js";
+
+// Configuration
+const RPC_URL = "https://testnet-rpc.plasma.to";
+const ESCROW_CONTRACT_ADDRESS = "YOUR_DEPLOYED_CONTRACT_ADDRESS"; // Update this after deployment
+
+// EscrowLinks ABI (only the functions we need)
+const ESCROW_ABI = [
+  "function createLink(bytes32 hash, uint64 ttlSeconds, bytes32 memoHash) external payable",
+  "function getLink(bytes32 hash) external view returns (address sender, uint128 amount, uint64 expiry, bool claimed, bytes32 memoHash)",
+  "event LinkCreated(bytes32 indexed hash, address indexed sender, uint256 amount, uint64 expiry, bytes32 indexed memoHash)"
+];
+
+// Get sender's wallet from localStorage (or use a fixed one for demo)
+const SENDER_PRIVATE_KEY = "0xaf09071a6eed1ca9314fb92e3460a1d49fad0caf88f3160184f6789d823eb1ef";
+
+const provider = new JsonRpcProvider(RPC_URL);
+const senderWallet = new Wallet(SENDER_PRIVATE_KEY, provider);
+const escrowContract = new Contract(ESCROW_CONTRACT_ADDRESS, ESCROW_ABI, senderWallet);
+
+const statusOutput = document.getElementById("statusOutput");
+const linkOutput = document.getElementById("linkOutput");
+const sendButton = document.getElementById("sendButton");
+
+function updateStatus(message, isError = false) {
+  statusOutput.innerHTML = `<p style="color: ${isError ? 'red' : 'green'}">${message}</p>`;
+}
+
+document.getElementById("sendForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const recipientEmail = document.getElementById("recipientEmail").value;
+  const amount = document.getElementById("amount").value;
+  const message = document.getElementById("message").value;
+  const expirySeconds = parseInt(document.getElementById("expiry").value);
+
+  try {
+    sendButton.disabled = true;
+    updateStatus("⏳ Generating secret and creating escrow link...");
+
+    // 1. Generate random secret (32 bytes)
+    const secret = hexlify(randomBytes(32));
+    console.log("🔐 Generated secret:", secret);
+
+    // 2. Hash the secret
+    const hash = keccak256(secret);
+    console.log("🔒 Hash:", hash);
+
+    // 3. Create memo hash from email
+    const memoHash = keccak256(new TextEncoder().encode(recipientEmail));
+    console.log("📝 Memo hash:", memoHash);
+
+    // 4. Call createLink on the contract
+    updateStatus("⏳ Submitting transaction to blockchain...");
+    const tx = await escrowContract.createLink(
+      hash,
+      expirySeconds,
+      memoHash,
+      { value: parseEther(amount) }
+    );
+
+    updateStatus("⏳ Waiting for transaction confirmation...");
+    const receipt = await tx.wait();
+    console.log("✅ Transaction confirmed:", receipt);
+
+    // 5. Generate the claim link
+    const claimUrl = `${window.location.origin}/claim.html#secret=${secret}&email=${encodeURIComponent(recipientEmail)}&amount=${amount}&message=${encodeURIComponent(message)}`;
+
+    // 6. Show success and the link
+    updateStatus("✅ Escrow link created successfully!");
+    linkOutput.style.display = "block";
+    linkOutput.innerHTML = `
+      <div style="padding: 20px; background: #e8f5e9; border-radius: 8px;">
+        <h3>🎉 Link Created!</h3>
+        <p><strong>Send this link to ${recipientEmail}:</strong></p>
+        <div style="background: white; padding: 10px; border-radius: 4px; word-break: break-all; margin: 10px 0;">
+          <code>${claimUrl}</code>
+        </div>
+        <button onclick="navigator.clipboard.writeText('${claimUrl}')" style="margin-top: 10px;">
+          📋 Copy Link
+        </button>
+        <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+          Transaction hash: <code>${receipt.hash}</code>
+        </p>
+      </div>
+    `;
+
+    // Optional: Send email via backend
+    // await sendEmailToRecipient(recipientEmail, claimUrl, amount, message);
+
+  } catch (error) {
+    console.error("❌ Error:", error);
+    updateStatus(`❌ Error: ${error.message || error}`, true);
+  } finally {
+    sendButton.disabled = false;
+  }
+});
+
+// Optional: Function to send email via backend
+async function sendEmailToRecipient(email, claimUrl, amount, message) {
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, claimUrl, amount, message })
+    });
+
+    if (!response.ok) {
+      console.warn("Email sending failed, but link is still valid");
+    }
+  } catch (error) {
+    console.warn("Email service unavailable, but link is still valid");
+  }
+}

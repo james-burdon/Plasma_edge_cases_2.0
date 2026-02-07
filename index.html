@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plasma Escrow Links</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin: 0 0 20px 0;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      opacity: 0.9;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: #f5f5f5;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      color: #667eea;
+    }
+
+    .nav-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 40px 0;
+    }
+
+    .nav-button {
+      display: block;
+      padding: 20px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      background: #764ba2;
+    }
+
+    .nav-button.secondary {
+      background: #48bb78;
+    }
+
+    .nav-button.secondary:hover {
+      background: #38a169;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🚀 Plasma Escrow Links</h1>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Send Crypto to Anyone</h1>
+    <p>No wallet? No problem. Just click a link.</p>
+  </div>
+
+  <section>
+    <h2>What is Plasma Escrow Links?</h2>
+    <p>
+      Send cryptocurrency to anyone via a simple link - even if they don't have a wallet yet!
+      Built on the Plasma blockchain with secure escrow smart contracts.
+    </p>
+  </section>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3>🔗 Link-Based</h3>
+      <p>Send crypto via shareable links. No complex wallet addresses needed.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🔒 Secure Escrow</h3>
+      <p>Funds locked on-chain until claimed by recipient or returned to sender.</p>
+    </div>
+    <div class="feature-card">
+      <h3>👛 Auto-Wallet</h3>
+      <p>Recipients without wallets can create one automatically when claiming.</p>
+    </div>
+    <div class="feature-card">
+      <h3>⏱️ Time-Locked</h3>
+      <p>Links expire after set duration. Unclaimed funds return to sender.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>Get Started</h2>
+    <div class="nav-buttons">
+      <a href="send.html" class="nav-button">
+        💸 Send Crypto Link
+      </a>
+      <a href="dashboard.html" class="nav-button secondary">
+        📊 My Dashboard
+      </a>
+      <a href="register.html" class="nav-button secondary">
+        🆕 Create Account
+      </a>
+    </div>
+  </section>
+
+  <section style="margin-top: 40px;">
+    <h2>How It Works</h2>
+    <ol style="font-size: 1.1em; line-height: 2;">
+      <li><strong>Create Link:</strong> Choose amount and recipient email</li>
+      <li><strong>Share Link:</strong> Send via email, SMS, or any messenger</li>
+      <li><strong>Recipient Claims:</strong> Click link to receive funds</li>
+      <li><strong>Auto-Wallet:</strong> New users get instant custodial wallet</li>
+    </ol>
+  </section>
+
+  <section style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-top: 40px;">
+    <h3>⚠️ Setup Required</h3>
+    <p>
+      Before using the app, you need to deploy the smart contract and update the configuration files.
+      Follow the instructions in:
+    </p>
+    <ul>
+      <li><strong>INTEGRATION_CHECKLIST.md</strong> - Step-by-step setup guide</li>
+      <li><strong>SETUP_GUIDE.md</strong> - Detailed documentation</li>
+      <li><strong>README.md</strong> - Overview and quick start</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Plasma | Built for Hackathon 2.0</p>
+</footer>
+
+</body>
+</html>

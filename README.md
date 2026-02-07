@@ -1,3 +1,54 @@
+# 🚀 Plasma Escrow Links
+
+Send crypto to anyone via link - even if they don't have a wallet! Built on Plasma blockchain with Foundry + vanilla HTML/JS.
+
+## ✨ Features
+
+- **🔗 Send Crypto via Link**: Create escrow links without complex bash scripts
+- **👛 Custodial Wallets**: Recipients can auto-create wallets when claiming
+- **🔒 Secure Escrow**: Funds locked on-chain until claimed or expired
+- **📧 Email Integration**: Optional email delivery of claim links
+- **⏱️ Time-Locked**: Links expire after set duration
+- **🌐 Web UI**: User-friendly interface for all operations
+
+## 🚀 Quick Start
+
+### 1. Deploy the Smart Contract
+
+**Option A - Windows:**
+```batch
+set RPC_URL=https://testnet-rpc.plasma.to
+set PRIVATE_KEY=0xYOUR_PRIVATE_KEY
+deploy.bat
+```
+
+**Option B - Linux/Mac:**
+```bash
+export RPC_URL="https://testnet-rpc.plasma.to"
+export PRIVATE_KEY="0xYOUR_PRIVATE_KEY"
+chmod +x deploy.sh
+./deploy.sh
+```
+
+### 2. Start Web Server
+
+```bash
+# Python
+python -m http.server 8000
+
+# Or use VS Code Live Server
+```
+
+### 3. Use the Application
+
+1. **Send Money**: Open `http://localhost:8000/send.html`
+2. **Claim Funds**: Click the generated link
+3. **View Dashboard**: See your balance at `dashboard.html`
+
+📖 **Full Setup Guide**: See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed instructions.
+
+---
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
