@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setup Required - Plasma</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="nav.js"></script>
+  <style>
+    .setup-box {
+      background: #fff3cd;
+      padding: 30px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 5px solid #ff9800;
+    }
+    .command-box {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      background: #45a049;
+    }
+    .step {
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border-left: 4px solid #2196F3;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚠️ Setup Required</h1>
+</header>
+
+<main>
+  <div class="setup-box">
+    <h2>🚀 Contract Not Deployed</h2>
+    <p>Before you can send crypto, you need to deploy the smart contract to the Plasma blockchain.</p>
+    <p><strong>This is a one-time setup that takes about 2 minutes!</strong></p>
+  </div>
+
+  <div class="step">
+    <h3>Step 1: Get Your Private Key</h3>
+    <p>From MetaMask or your wallet:</p>
+    <ol>
+      <li>Click on your account icon</li>
+      <li>Select "Account Details"</li>
+      <li>Click "Export Private Key"</li>
+      <li>Enter your password</li>
+      <li>Copy the key (starts with <code>0x</code>)</li>
+    </ol>
+    <p><strong>⚠️ Keep this key safe! Never share it publicly.</strong></p>
+  </div>
+
+  <div class="step">
+    <h3>Step 2: Deploy the Contract</h3>
+    <p>Open PowerShell in your project folder and run:</p>
+
+    <div class="command-box">
+      <button class="copy-btn" onclick="copyCommand('cmd1')">Copy</button>
+      <div id="cmd1">$env:RPC_URL="https://testnet-rpc.plasma.to"<br>
+$env:PRIVATE_KEY="0xYOUR_PRIVATE_KEY_HERE"<br>
+.\deploy.bat</div>
+    </div>
+
+    <p><strong>Replace <code>0xYOUR_PRIVATE_KEY_HERE</code> with your actual private key!</strong></p>
+  </div>
+
+  <div class="step">
+    <h3>Step 3: Wait for Deployment</h3>
+    <p>The script will deploy your contract and show:</p>
+    <div class="command-box">
+Contract Address: 0x1234567890abcdef...
+    </div>
+    <p><strong>Copy this address!</strong></p>
+  </div>
+
+  <div class="step">
+    <h3>Step 4: Update Configuration</h3>
+    <p>The address needs to be added to 3 files. Use Find & Replace in VS Code:</p>
+    <ol>
+      <li>Press <kbd>Ctrl+Shift+H</kbd> (Find & Replace in Files)</li>
+      <li>Find: <code>0x0000000000000000000000000000000000000000</code></li>
+      <li>Replace: <code>YOUR_DEPLOYED_ADDRESS</code></li>
+      <li>Files to include: <code>send.js, claim.js, config.js</code></li>
+      <li>Click "Replace All"</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <h3>Step 5: Restart Server</h3>
+    <div class="command-box">
+      <button class="copy-btn" onclick="copyCommand('cmd2')">Copy</button>
+      <div id="cmd2"># Press Ctrl+C to stop server<br>npm start</div>
+    </div>
+  </div>
+
+  <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>✅ Done!</h3>
+    <p>After restarting, you'll be able to send crypto via links!</p>
+    <p><a href="/send.html" style="padding: 10px 20px; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">Try Sending Now →</a></p>
+  </div>
+
+  <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>💡 Need Help?</h3>
+    <ul>
+      <li><strong>No Foundry?</strong> Install from: <a href="https://book.getfoundry.sh/getting-started/installation" target="_blank">getfoundry.sh</a></li>
+      <li><strong>Need XPL?</strong> Get testnet tokens from Plasma faucet</li>
+      <li><strong>Having issues?</strong> Check <a href="TROUBLESHOOTING.md">TROUBLESHOOTING.md</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 Plasma</p>
+</footer>
+
+<script>
+function copyCommand(id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    alert('✅ Copied to clipboard!');
+  });
+}
+</script>
+
+</body>
+</html>

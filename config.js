@@ -5,8 +5,8 @@ export const config = {
   CHAIN_ID: 9746, // Plasma testnet chain ID (correct value)
   NETWORK_NAME: "plasma-testnet",
 
-  // Contract addresses (UPDATE AFTER DEPLOYMENT)
-  ESCROW_CONTRACT_ADDRESS: "YOUR_DEPLOYED_CONTRACT_ADDRESS",
+  // Contract addresses (MUST DEPLOY FIRST)
+  ESCROW_CONTRACT_ADDRESS: "0x0000000000000000000000000000000000000000", // Placeholder
 
   // Default settings
   DEFAULT_TTL: 86400, // 24 hours in seconds

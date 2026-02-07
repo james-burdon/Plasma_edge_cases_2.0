@@ -11,7 +11,19 @@ import {
 
 // Configuration
 const RPC_URL = "https://testnet-rpc.plasma.to";
-const ESCROW_CONTRACT_ADDRESS = "YOUR_DEPLOYED_CONTRACT_ADDRESS"; // Update this after deployment
+let ESCROW_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
+
+// Fetch contract address from backend on load
+(async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/config');
+    const config = await response.json();
+    if (config.deployed && config.contractAddress && config.contractAddress !== "YOUR_DEPLOYED_CONTRACT_ADDRESS") {
+      ESCROW_CONTRACT_ADDRESS = config.contractAddress;
+      console.log("✅ Contract loaded:", ESCROW_CONTRACT_ADDRESS);
+    }
+  } catch (e) { console.warn("Could not load contract address"); }
+})();
 
 // EscrowLinks ABI (only the functions we need)
 const ESCROW_ABI = [
@@ -61,6 +73,13 @@ document.getElementById("sendForm").addEventListener("submit", async (e) => {
   const expirySeconds = parseInt(document.getElementById("expiry").value);
 
   try {
+    // Check if contract is deployed
+    if (!ESCROW_CONTRACT_ADDRESS || ESCROW_CONTRACT_ADDRESS === "0x0000000000000000000000000000000000000000") {
+      updateStatus("❌ Contract not deployed!", true);
+      window.location.href = "/setup.html";
+      return;
+    }
+
     sendButton.disabled = true;
     updateStatus("⏳ Generating secret and creating escrow link...");
 
