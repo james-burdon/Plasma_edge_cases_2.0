@@ -5,17 +5,34 @@ Use this checklist to connect your Foundry backend with the HTML/JS frontend.
 ## Step 1: Deploy Contract ⚙️
 
 - [ ] Set environment variables:
+
+  **PowerShell:**
+  ```powershell
+  $env:RPC_URL="https://testnet-rpc.plasma.to"
+  $env:PRIVATE_KEY="0xYOUR_PRIVATE_KEY_HERE"
+  ```
+
+  **Command Prompt (CMD):**
   ```batch
   set RPC_URL=https://testnet-rpc.plasma.to
   set PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
   ```
 
 - [ ] Run deployment script:
+
+  **PowerShell:**
+  ```powershell
+  .\deploy.bat
+  ```
+
+  **Command Prompt (CMD):**
   ```batch
   deploy.bat
   ```
-  Or on Linux/Mac:
+
+  **Linux/Mac:**
   ```bash
+  chmod +x deploy.sh
   ./deploy.sh
   ```
 

@@ -15,7 +15,14 @@ Send crypto to anyone via link - even if they don't have a wallet! Built on Plas
 
 ### 1. Deploy the Smart Contract
 
-**Option A - Windows:**
+**Option A - Windows (PowerShell):**
+```powershell
+$env:RPC_URL="https://testnet-rpc.plasma.to"
+$env:PRIVATE_KEY="0xYOUR_PRIVATE_KEY"
+.\deploy.bat
+```
+
+**Option A2 - Windows (CMD):**
 ```batch
 set RPC_URL=https://testnet-rpc.plasma.to
 set PRIVATE_KEY=0xYOUR_PRIVATE_KEY
