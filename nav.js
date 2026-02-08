@@ -1,26 +1,61 @@
-// Navigation bar component
-// Auto-injects into pages
+// nav.js — Plasma-style top bar (safe to load in <head>)
+(function () {
+  function init() {
+    const links = [
+      { href: "send.html", label: "Send" },
+      { href: "claim.html", label: "Claim" },
+      { href: "dashboard.html", label: "Dashboard" },
+    ];
 
-document.addEventListener('DOMContentLoaded', () => {
-  const navHTML = `
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <button onclick="history.back()" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 16px;" title="Go Back">
-          ← Back
-        </button>
-        <a href="/" style="color: white; text-decoration: none; font-weight: bold; font-size: 18px;">
-          🏠 Home
+    const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+
+    const hasSession =
+      !!sessionStorage.getItem("plasmaPrivateKey") ||
+      !!sessionStorage.getItem("plasmaUser") ||
+      !!localStorage.getItem("plasmaUserWallet");
+
+    const header = document.createElement("header");
+    header.className = "plasma-topbar";
+    header.innerHTML = `
+      <div class="plasma-topbar__inner">
+        <a class="plasma-brand" href="index.html" aria-label="Plasma home">
+          <img class="plasma-brand__logo" src="assets/plasma-logo.svg" alt="Plasma"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="plasma-brand__text" style="display:none;">Plasma</span>
         </a>
-      </div>
-      <div style="display: flex; gap: 10px;">
-        <a href="/login.html" style="color: white; text-decoration: none; padding: 8px 15px; background: rgba(255,255,255,0.2); border-radius: 4px;">Login</a>
-        <a href="/register.html" style="color: white; text-decoration: none; padding: 8px 15px; background: rgba(255,255,255,0.2); border-radius: 4px;">Register</a>
-        <a href="/send.html" style="color: white; text-decoration: none; padding: 8px 15px; background: rgba(255,255,255,0.2); border-radius: 4px;">Send</a>
-        <a href="/dashboard.html" style="color: white; text-decoration: none; padding: 8px 15px; background: rgba(255,255,255,0.2); border-radius: 4px;">Dashboard</a>
-      </div>
-    </div>
-  `;
 
-  // Insert nav at the top of body
-  document.body.insertAdjacentHTML('afterbegin', navHTML);
-});
+        <nav class="plasma-nav" aria-label="Primary">
+          ${links
+            .map((l) => {
+              const active = l.href.toLowerCase() === current ? "is-active" : "";
+              return `<a class="plasma-nav__link ${active}" href="${l.href}">${l.label}</a>`;
+            })
+            .join("")}
+        </nav>
+
+        <div class="plasma-actions">
+          <button class="plasma-iconbtn" type="button" aria-label="Language / region (placeholder)" title="Language / region">
+            🌐
+          </button>
+          <a id="plasmaCta" class="plasma-cta" href="${hasSession ? "dashboard.html" : "login.html"}">
+            Go to Dashboard →
+          </a>
+        </div>
+      </div>
+    `;
+
+    // Inject topbar
+    document.body.prepend(header);
+
+    // Remove the old per-page header (the green title bar)
+    const legacyHeader = document.querySelector("body > header:not(.plasma-topbar)");
+    if (legacyHeader) legacyHeader.remove();
+  }
+
+  // Make sure body exists (because nav.js is loaded in <head>)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
