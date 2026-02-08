@@ -1,92 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Claim Your Crypto - Plasma</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="nav.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claim - Plasma</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<header>
-  <h1>🎁 You've Received Crypto!</h1>
-</header>
+<body class="page-claim">
+  <main>
+    <section class="hero hero--claim">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__kicker">Escrow Links • Claim</div>
+          <div class="hero__title">Redeem a link.<br/>Receive funds.</div>
+          <p class="hero__sub">
+            We verify the link on-chain, then you choose where to receive the funds.
+            No wallet? Create one instantly.
+          </p>
 
-<main>
-  <section class="form-section">
-    <div id="loadingStatus">
-      <p>⏳ Loading your gift...</p>
+          <div class="hero__tags" aria-label="Claim highlights">
+            <span class="tag tag--claim">Verify</span>
+            <span class="tag">Choose destination</span>
+            <span class="tag">Claim</span>
+            <span class="tag">Instant wallet</span>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn btn-ghost" href="send.html">Send a link</a>
+            <a class="btn btn-ghost" href="login.html">Sign in page</a>
+          </div>
+        </div>
+
+        <div class="hero__media">
+          <div class="motion-surface motion-surface--claim" id="motionClaimHero" aria-hidden="true">
+            <div class="motion-ui motion-ui--stack">
+              <div class="motion-card is-on">
+                <div class="motion-badge">1</div>
+                <div class="motion-title">Verify</div>
+                <div class="motion-sub">Check on-chain</div>
+                <div class="motion-icon">🔒</div>
+              </div>
+
+              <div class="motion-card">
+                <div class="motion-badge">2</div>
+                <div class="motion-title">Choose</div>
+                <div class="motion-sub">New or existing</div>
+                <div class="motion-icon">👛</div>
+              </div>
+
+              <div class="motion-card">
+                <div class="motion-badge">3</div>
+                <div class="motion-title">Claim</div>
+                <div class="motion-sub">Funds delivered</div>
+                <div class="motion-icon">✅</div>
+              </div>
+            </div>
+
+            <div class="motion-strip">
+              <span class="dotx"></span>
+              <span class="motion-strip-text">Verified → ready to claim</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- flipped grid for claim to feel distinct -->
+    <div class="page-grid page-grid--flip">
+      <aside class="card">
+        <div class="section-title">What you’ll do</div>
+        <p class="section-sub">A short, guided claim flow with clear states.</p>
+
+        <div class="notice" style="margin-top: 14px;">
+          <div style="font-weight:850;">Step 1 — Verify</div>
+          <div class="help" style="margin-top: 6px;">
+            We load the claim link, validate it, and show the amount + message.
+          </div>
+        </div>
+
+        <div class="notice" style="margin-top: 12px;">
+          <div style="font-weight:850;">Step 2 — Choose destination</div>
+          <div class="help" style="margin-top: 6px;">
+            Create a new wallet (demo) or claim to an existing address.
+          </div>
+        </div>
+
+        <div class="notice warn" style="margin-top: 12px;">
+          <div style="font-weight:850;">Demo note</div>
+          <div class="help" style="margin-top: 6px;">
+            This repo uses a simplified flow for demonstration. Use a relayer + secure key management in production.
+          </div>
+        </div>
+      </aside>
+
+      <section class="card card--solid">
+        <div class="section-title">Claim details</div>
+        <p class="section-sub">We’ll verify the link on-chain and guide you through the claim.</p>
+
+        <div id="loadingStatus" class="notice" style="margin-top: 14px;">Loading claim link…</div>
+
+        <div id="errorDisplay" style="display:none; margin-top: 14px;">
+          <div class="notice error">
+            <div style="font-weight:850;">Couldn’t load this claim link</div>
+            <div id="errorMessage" class="help" style="margin-top: 6px;"></div>
+          </div>
+        </div>
+
+        <div id="claimInfo" style="display:none; margin-top: 14px;">
+          <div class="card card--flat" style="padding: 16px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+              <div>
+                <div class="help" style="text-transform:uppercase; letter-spacing:.12em;">Amount</div>
+                <div style="font-size: 30px; font-weight: 900; letter-spacing:-0.03em; margin-top:6px;">
+                  <span id="amountDisplay">—</span> <span style="font-size: 13px; opacity:.75;">XPL</span>
+                </div>
+              </div>
+              <div style="min-width: 220px;">
+                <div class="help" style="text-transform:uppercase; letter-spacing:.12em;">Message</div>
+                <div id="messageDisplay" style="margin-top:6px; color: var(--text-2);">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div class="section-title" style="font-size:16px;">Choose how to receive</div>
+            <p class="section-sub">Create a new custodial wallet, or claim to an existing address.</p>
+
+            <div class="row" style="margin-top: 10px;">
+              <button id="createAccountBtn" class="btn btn-primary" type="button">Create new wallet</button>
+              <button id="useExistingBtn" class="btn" type="button">Use existing address</button>
+            </div>
+          </div>
+
+          <div id="newAccountForm" style="display:none; margin-top: 14px;">
+            <div class="card card--flat" style="padding: 16px;">
+              <div class="section-title" style="font-size:16px;">Create a wallet for you</div>
+              <p class="section-sub">This is a demo flow. In production, keys should be encrypted and secured.</p>
+
+              <form id="registerClaimForm" class="form" style="margin-top: 12px;">
+                <div class="field">
+                  <div class="label">Forename</div>
+                  <input id="forename" class="input" type="text" required />
+                </div>
+                <div class="field">
+                  <div class="label">Surname</div>
+                  <input id="surname" class="input" type="text" required />
+                </div>
+                <div class="field">
+                  <div class="label">Username</div>
+                  <input id="username" class="input" type="text" required />
+                </div>
+
+                <button class="btn btn-primary" type="submit">Create + claim →</button>
+              </form>
+            </div>
+          </div>
+
+          <div id="existingWalletForm" style="display:none; margin-top: 14px;">
+            <div class="card card--flat" style="padding: 16px;">
+              <div class="section-title" style="font-size:16px;">Claim to an address</div>
+              <p class="section-sub">Paste your wallet address and submit the claim.</p>
+
+              <form id="existingClaimForm" class="form" style="margin-top: 12px;">
+                <div class="field">
+                  <div class="label">Wallet address</div>
+                  <input id="walletAddress" class="input" type="text" placeholder="0x…" required />
+                  <div class="help">Must be a valid 0x address.</div>
+                </div>
+                <button class="btn btn-primary" type="submit">Claim →</button>
+              </form>
+            </div>
+          </div>
+
+          <div id="claimStatus" class="notice" style="margin-top: 14px;">Ready.</div>
+        </div>
+      </section>
     </div>
 
-    <div id="claimInfo" style="display: none;">
-      <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h2>💰 <span id="amountDisplay">0</span> XPL</h2>
-        <p id="messageDisplay" style="margin: 10px 0;"></p>
-      </div>
+    <div class="footer">&copy; 2026 Plasma</div>
+  </main>
 
-      <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-        <h3>Choose how to receive your funds:</h3>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <button id="createAccountBtn" class="primary-button" style="width: 100%; padding: 15px; margin-bottom: 10px;">
-          🆕 Create New Plasma Account (Recommended)
-        </button>
-        <button id="useExistingBtn" class="secondary-button" style="width: 100%; padding: 15px;">
-          🔑 I Have My Own Wallet Address
-        </button>
-      </div>
-
-      <!-- New Account Creation Form -->
-      <div id="newAccountForm" style="display: none;">
-        <h3>Create Your Account</h3>
-        <form id="registerClaimForm">
-          <label>Forename</label>
-          <input id="forename" type="text" required>
-
-          <label>Surname</label>
-          <input id="surname" type="text" required>
-
-          <label>Username</label>
-          <input id="username" type="text" required>
-
-          <label>Password</label>
-          <input id="password" type="password" required>
-
-          <label>
-            <input type="checkbox" required>
-            I agree to the Terms and Conditions
-          </label>
-
-          <button type="submit">Create Account & Claim Funds</button>
-        </form>
-      </div>
-
-      <!-- Existing Wallet Form -->
-      <div id="existingWalletForm" style="display: none;">
-        <h3>Enter Your Wallet Address</h3>
-        <form id="existingClaimForm">
-          <label>Wallet Address</label>
-          <input id="walletAddress" type="text" placeholder="0x..." required>
-
-          <button type="submit">Claim to This Address</button>
-        </form>
-      </div>
-
-      <div id="claimStatus" style="margin-top: 20px;"></div>
-    </div>
-
-    <div id="errorDisplay" style="display: none; color: red; padding: 20px;">
-      <h3>❌ Error</h3>
-      <p id="errorMessage"></p>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <p>&copy; 2026 Plasma</p>
-</footer>
-
-<script type="module" src="claim.js"></script>
+  <script src="nav.js"></script>
+  <script type="module" src="claim.js"></script>
 </body>
 </html>

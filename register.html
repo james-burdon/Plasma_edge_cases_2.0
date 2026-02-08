@@ -1,46 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Plasma Account Registration</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="nav.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - Plasma</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<header>
-  <h1>Create Your Plasma Account</h1>
-</header>
+<body class="page-video-auth">
+  <!-- Background video -->
+  <div class="bg-wrap" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/home-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-vignette"></div>
+  </div>
 
-<main>
-  <section class="form-section">
-    <form id="registerForm">
-      <label>Forename</label>
-      <input id="forename" type="text" required>
+  <main class="auth-main">
+    <!-- ONLY the form card (topbar remains via nav.js) -->
+    <div class="auth-center">
+      <section class="auth-card" aria-label="Register form">
+        <div class="auth-card__head">
+          <div class="cardKicker">
+            <span class="dot"></span>
+            <span>ACCOUNT</span>
+          </div>
 
-      <label>Surname</label>
-      <input id="surname" type="text" required>
+          <div class="cardTitle">Create your account</div>
+          <div class="cardSub">Generate a custodial wallet and start sending escrow links.</div>
+        </div>
 
-      <label>Username</label>
-      <input id="username" type="text" required>
+        <form id="registerForm" class="form" autocomplete="on">
+          <div class="fieldRow">
+            <div class="field">
+              <label class="label" for="forename">Forename</label>
+              <input
+                id="forename"
+                name="forename"
+                class="input"
+                type="text"
+                autocomplete="given-name"
+                required
+                placeholder="e.g. Joseph"
+              />
+            </div>
 
-      <label>Password</label>
-      <input id="password" type="password" required>
+            <div class="field">
+              <label class="label" for="surname">Surname</label>
+              <input
+                id="surname"
+                name="surname"
+                class="input"
+                type="text"
+                autocomplete="family-name"
+                required
+                placeholder="e.g. Mace"
+              />
+            </div>
+          </div>
 
-      <label>
-        <input type="checkbox" required>
-        I agree to the Terms and Conditions
-      </label>
+          <div class="field">
+            <label class="label" for="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              class="input"
+              type="text"
+              autocomplete="username"
+              required
+              placeholder="Choose a username"
+            />
+            <div class="helpText">This will be used to sign in.</div>
+          </div>
 
-      <button type="submit">Register</button>
-    </form>
-  </section>
-</main>
+          <div class="field">
+            <label class="label" for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              class="input"
+              type="password"
+              autocomplete="new-password"
+              required
+              placeholder="Create a password"
+            />
+            <div class="helpText">Keep it safe — it protects your demo wallet.</div>
+          </div>
 
-<footer>
-  <p>&copy; 2026 Plasma</p>
-</footer>
+          <label class="checkRow">
+            <input class="check" type="checkbox" required />
+            <span class="checkText">
+              I agree to the <a class="link" href="#" onclick="return false;">Terms and Conditions</a>
+            </span>
+          </label>
 
-<script src="register.js"></script>
+          <div class="btnRow">
+            <button type="submit" class="hero-btn hero-btn--primary">Create account →</button>
+            <a class="hero-btn hero-btn--ghost" href="login.html">Sign in</a>
+          </div>
+        </form>
+
+        <!-- register.js appends #statusOutput automatically (to registerForm.parentElement).
+             We'll style it below. -->
+
+        <p class="footNote">
+          Already registered? <a class="link" href="login.html">Login</a>.
+          <span class="sep">•</span>
+          <a class="link" href="index.html">Back to home</a>
+        </p>
+      </section>
+    </div>
+
+    <div class="footer footer--dark">© 2026 Plasma</div>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="register.js"></script>
+
+  <!-- Page-local styles only -->
+  <style>
+    /* Topbar on video */
+    .page-video-auth .plasma-topbar{
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+    }
+    .page-video-auth .plasma-brand__text,
+    .page-video-auth .plasma-nav__link{
+      color: rgba(255,255,255,0.88);
+    }
+    .page-video-auth .plasma-nav__link.is-active{
+      border-bottom-color: rgba(255,255,255,0.35);
+    }
+    .page-video-auth .plasma-iconbtn{
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.92);
+    }
+    .page-video-auth .plasma-cta{
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    /* Background video */
+    .page-video-auth{
+      background:#000;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      overflow:hidden;
+      background:#000;
+    }
+    .bg-video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
+    }
+    .bg-vignette{
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(900px 520px at 30% 40%, rgba(0,255,240,0.16), transparent 58%),
+        linear-gradient(90deg, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.10) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.45) 100%);
+    }
+
+    /* Layout */
+    .auth-main{
+      max-width:none !important;
+      padding:0 !important;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .auth-center{
+      flex: 1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 34px 14px 18px;
+    }
+
+    /* Glass form card */
+    .auth-card{
+      width: min(720px, calc(100vw - 28px));
+      padding: 18px;
+      border-radius: 18px;
+
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 70px rgba(0,0,0,0.35);
+
+      position: relative;
+      z-index: 3; /* ensure inputs clickable */
+      pointer-events: auto;
+    }
+
+    .auth-card__head{ margin-bottom: 12px; }
+
+    .cardKicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(0,255,240,0.55);
+      box-shadow: 0 0 0 3px rgba(0,255,240,0.18);
+    }
+
+    .cardTitle{
+      color: rgba(255,255,255,0.92);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+    .cardSub{
+      margin-top: 6px;
+      color: rgba(255,255,255,0.66);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* Form styles */
+    .form{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      margin-top: 14px;
+      pointer-events: auto;
+    }
+    .fieldRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .label{
+      color: rgba(255,255,255,0.74);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .input{
+      height: 42px;
+      width: 100%;
+      padding: 0 12px;
+      border-radius: 12px;
+
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.92);
+
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      pointer-events: auto;
+    }
+    .input::placeholder{ color: rgba(255,255,255,0.55); }
+    .input:focus{
+      border-color: rgba(0,255,240,0.45);
+      box-shadow: 0 0 0 4px rgba(0,255,240,0.14);
+    }
+
+    .helpText{
+      color: rgba(255,255,255,0.58);
+      font-size: 12px;
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    .checkRow{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.12);
+      user-select:none;
+    }
+    .check{
+      margin-top: 2px;
+      accent-color: rgba(0,255,240,0.85);
+    }
+    .checkText{
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .btnRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* Buttons */
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: rgba(255,255,255,0.90);
+      background: rgba(255,255,255,0.08);
+      transition: transform .14s ease, background .14s ease, border-color .14s ease;
+      user-select:none;
+    }
+    .hero-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .hero-btn--primary{
+      background: rgba(0,255,240,0.16);
+      border-color: rgba(0,255,240,0.28);
+      box-shadow: 0 10px 30px rgba(0,255,240,0.16);
+      color: rgba(255,255,255,0.95);
+    }
+    .hero-btn--primary:hover{
+      background: rgba(0,255,240,0.20);
+      border-color: rgba(0,255,240,0.34);
+    }
+    .hero-btn--ghost{
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* register.js creates #statusOutput; make it Plasma-y */
+    #statusOutput{
+      margin-top: 12px !important;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.14);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    #statusOutput:empty{ display:none; }
+    #statusOutput p{ margin: 0; font-weight: 800; letter-spacing: -0.01em; }
+
+    .footNote{
+      margin-top: 14px;
+      text-align:center;
+      color: rgba(255,255,255,0.66);
+      font-size: 13px;
+    }
+    .sep{
+      margin: 0 8px;
+      color: rgba(255,255,255,0.40);
+    }
+    .link{
+      color: rgba(255,255,255,0.92);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(255,255,255,0.28);
+      padding-bottom: 1px;
+    }
+    .link:hover{ border-bottom-color: rgba(255,255,255,0.55); }
+
+    .footer--dark{
+      padding: 12px 22px 20px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 760px){
+      .fieldRow{ grid-template-columns: 1fr; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .bg-video{ display:none; }
+      .bg-wrap{ background:#081010; }
+    }
+  </style>
 </body>
 </html>

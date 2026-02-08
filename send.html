@@ -1,49 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Send Crypto via Link - Plasma</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="nav.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Send via Link - Plasma</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<header>
-  <h1>Send Crypto via Link</h1>
-</header>
+<body class="page-send">
+  <main>
+    <section class="hero hero--send">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__kicker">Escrow Links • Send</div>
+          <div class="hero__title">Create a link.<br/>Send instantly.</div>
+          <p class="hero__sub">
+            Generate an escrow link backed by a smart contract. Share it anywhere — recipients can claim with
+            a new wallet or their own address.
+          </p>
 
-<main>
-  <section class="form-section">
-    <form id="sendForm">
-      <label>Recipient Email</label>
-      <input id="recipientEmail" type="email" required>
+          <div class="hero__tags" aria-label="Send highlights">
+            <span class="tag tag--send">Create</span>
+            <span class="tag">Copy</span>
+            <span class="tag">Share</span>
+            <span class="tag">Escrowed</span>
+          </div>
 
-      <label>Amount (XPL)</label>
-      <input id="amount" type="number" step="0.001" min="0.001" required>
+          <div class="hero__actions">
+            <a class="btn btn-ghost" href="claim.html">Claim a link</a>
+            <a class="btn btn-ghost" href="login.html">Sign in page</a>
+          </div>
+        </div>
 
-      <label>Message (optional)</label>
-      <textarea id="message" rows="3" placeholder="Add a personal message..."></textarea>
+        <div class="hero__media">
+          <div class="motion-surface motion-surface--send" id="motionSendHero" aria-hidden="true">
+            <div class="motion-ui">
+              <div class="motion-card is-on">
+                <div class="motion-badge">1</div>
+                <div class="motion-title">Create link</div>
+                <div class="motion-sub">Amount + expiry</div>
+                <div class="motion-icon">🔗</div>
+              </div>
 
-      <label>Link Expiry</label>
-      <select id="expiry" required>
-        <option value="86400">24 hours</option>
-        <option value="259200">3 days</option>
-        <option value="604800">7 days</option>
-        <option value="2592000">30 days</option>
-      </select>
+              <div class="motion-card">
+                <div class="motion-badge">2</div>
+                <div class="motion-title">Copy</div>
+                <div class="motion-sub">One tap</div>
+                <div class="motion-icon">📋</div>
+              </div>
 
-      <button type="submit" id="sendButton">Create Escrow Link</button>
-    </form>
+              <div class="motion-card">
+                <div class="motion-badge">3</div>
+                <div class="motion-title">Share</div>
+                <div class="motion-sub">Email / SMS</div>
+                <div class="motion-icon">✉️</div>
+              </div>
+            </div>
 
-    <div id="statusOutput" style="margin-top: 20px;"></div>
-    <div id="linkOutput" style="margin-top: 20px; display: none;"></div>
-  </section>
-</main>
+            <div class="motion-strip">
+              <span class="dotx"></span>
+              <span class="motion-strip-text">Link created → ready to share</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <p>&copy; 2026 Plasma</p>
-</footer>
+    <div class="page-grid">
+      <section class="card">
+        <div class="section-title">Create an escrow link</div>
+        <p class="section-sub">Enter recipient details, amount and expiry. Your link will be generated in the Output panel.</p>
 
-<script type="module" src="send.js"></script>
+        <form id="sendForm" class="form" style="margin-top: 14px;">
+          <div class="field">
+            <div class="label">Recipient email</div>
+            <input id="recipientEmail" class="input" type="email" placeholder="name@email.com" required />
+          </div>
+
+          <div class="field">
+            <div class="label">Amount (XPL)</div>
+            <input id="amount" class="input" type="number" step="0.001" min="0.001" placeholder="0.50" required />
+            <div class="help">Funds remain locked until claimed or expired.</div>
+          </div>
+
+          <div class="field">
+            <div class="label">Message (optional)</div>
+            <textarea id="message" class="textarea" rows="3" placeholder="Add a short message..."></textarea>
+          </div>
+
+          <div class="field">
+            <div class="label">Link expiry</div>
+            <select id="expiry" class="select" required>
+              <option value="86400">24 hours</option>
+              <option value="259200">3 days</option>
+              <option value="604800">7 days</option>
+              <option value="2592000">30 days</option>
+            </select>
+          </div>
+
+          <button type="submit" id="sendButton" class="btn btn-primary">Create escrow link →</button>
+        </form>
+      </section>
+
+      <aside class="card card--solid">
+        <div class="section-title">Output</div>
+        <p class="section-sub">Status and generated link will appear here.</p>
+
+        <div id="statusOutput" class="notice" style="margin-top: 14px;">Ready.</div>
+
+        <div id="linkOutput" class="codebox mono" style="display:none; margin-top: 12px;"></div>
+
+        <div class="notice" style="margin-top: 12px;">
+          <div style="font-weight:850;">Next</div>
+          <div class="help" style="margin-top:6px;">
+            Share the generated link with the recipient. They can claim to a new wallet or an existing address.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">&copy; 2026 Plasma</div>
+  </main>
+
+  <script src="nav.js"></script>
+  <script type="module" src="send.js"></script>
 </body>
 </html>

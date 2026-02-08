@@ -1,125 +1,674 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+/* ===========================
+   Plasma UI Theme (global)
+   UI-only: safe for app logic
+   =========================== */
+
+:root{
+  --bg: #f4f3ef;                 /* warm off-white */
+  --surface: rgba(255,255,255,.92);
+  --surface-solid: #ffffff;
+  --ink: #0b0b0b;
+  --muted: rgba(0,0,0,.62);
+  --border: rgba(0,0,0,.10);
+  --shadow: 0 24px 60px rgba(0,0,0,.10);
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  /* Plasma-ish tones */
+  --forest: #0f2a24;
+  --forest-2: #12352d;
+  --mint: #20c7b4;
+
+  --cta: #0b0b0b;
+  --cta-hover: #1a1a1a;
+
+  --max: 1180px;
 }
 
-body {
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-header {
-    background-color: #0a6e19;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+html, body { height: 100%; }
+
+body{
+  color: var(--ink);
+  background:
+    radial-gradient(900px 520px at 15% 10%, rgba(32,199,180,0.16), transparent 62%),
+    radial-gradient(900px 520px at 85% 20%, rgba(15,42,36,0.10), transparent 60%),
+    var(--bg);
+  line-height: 1.6;
 }
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+/* Layout container */
+main{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 26px 18px 40px;
 }
 
-header nav ul li {
-    margin: 0 15px;
+/* Links */
+a{
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(0,0,0,0.25);
+  text-underline-offset: 3px;
+}
+a:hover{
+  text-decoration-color: rgba(0,0,0,0.55);
 }
 
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+/* Cards / sections */
+.card,
+section{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
 }
 
-header nav ul li a:hover {
-    text-decoration: underline;
+/* Avoid your old "header {...}" styling breaking the injected plasma topbar */
+header:not(.plasma-topbar){
+  background: var(--forest);
+  color: #fff;
+  padding: 18px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+header:not(.plasma-topbar) nav ul{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 0 12px;
+}
+header:not(.plasma-topbar) nav ul li a{
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
+/* Footer */
+.footer,
+footer{
+  text-align: center;
+  color: rgba(0,0,0,0.55);
+  padding: 22px 0 10px;
+  font-size: 13px;
+}
+footer{
+  background: transparent;
 }
 
-section {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+/* ---------------------------
+   Buttons
+   --------------------------- */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.70);
+  color: rgba(0,0,0,0.82);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(0,0,0,0.18);
+}
+.btn:active{ transform: translateY(0px); }
+
+.btn-primary{
+  background: var(--cta);
+  color: #fff;
+  border-color: rgba(0,0,0,0.35);
+}
+.btn-primary:hover{
+  background: var(--cta-hover);
 }
 
-.button-container {
-    text-align: center;
-    margin: 20px 0;
+.btn-ghost{
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+  border-color: rgba(255,255,255,0.28);
+}
+.btn-ghost:hover{
+  background: rgba(255,255,255,0.22);
 }
 
-.action-button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    background-color: #0a6e19;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
+/* ---------------------------
+   Typography helpers
+   --------------------------- */
+.section-title{
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.section-sub{
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.action-button:hover {
-    background-color: #005fa3;
+/* ---------------------------
+   Hero (Plasma style)
+   --------------------------- */
+.hero{
+  background:
+    radial-gradient(1000px 600px at 18% 15%, rgba(32,199,180,0.22), transparent 60%),
+    linear-gradient(135deg, rgba(15,42,36,1) 0%, rgba(9,15,14,1) 55%, rgba(6,9,9,1) 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
 }
 
-.transfer-info {
-    text-align: center;
+.hero__inner{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 22px;
+  align-items: center;
 }
 
-footer {
-    text-align: center;
-    padding: 15px 0;
-    background-color: #333;
-    color: white;
+.hero__kicker{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.hero__kicker::before{
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--mint);
+  box-shadow: 0 0 0 6px rgba(32,199,180,0.12);
 }
 
-.form-section {
-    max-width: 400px;
-    margin: 40px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.hero__title{
+  margin-top: 14px;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  font-weight: 800;
 }
 
-.form-section label {
-    display: block;
-    margin: 15px 0 5px;
+.hero__sub{
+  margin-top: 14px;
+  color: rgba(255,255,255,0.78);
+  max-width: 54ch;
+  font-size: 15px;
+}
+
+.hero__actions{
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Motion placeholder (for later video / Lottie / canvas) */
+.motion-surface{
+  width: 100%;
+  min-height: 280px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background:
+    radial-gradient(500px 280px at 30% 30%, rgba(32,199,180,0.22), transparent 60%),
+    radial-gradient(520px 320px at 70% 55%, rgba(255,255,255,0.10), transparent 62%),
+    rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.motion-surface::after{
+  /* subtle shimmer – can remove later */
+  content: "";
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.14), transparent);
+  transform: rotate(8deg);
+  animation: shimmer 5.5s linear infinite;
+  opacity: .65;
+}
+@keyframes shimmer{
+  0%{ transform: translateX(-35%) rotate(8deg); }
+  100%{ transform: translateX(35%) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  .motion-surface::after{ animation: none; }
+}
+
+/* ---------------------------
+   Forms (keep your existing IDs working)
+   --------------------------- */
+.form-section{
+  max-width: 520px;
+  margin: 34px auto;
+  background: var(--surface-solid);
+  padding: 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.form-section label{
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(0,0,0,0.78);
 }
 
 .form-section input[type="text"],
-.form-section input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.form-section input[type="password"],
+.form-section input[type="email"],
+.form-section input[type="number"],
+.form-section textarea,
+.form-section select{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.16);
+  background: #fff;
 }
 
-.form-section input[type="checkbox"] {
-    margin-right: 10px;
+.form-section input:focus,
+.form-section textarea:focus,
+.form-section select:focus{
+  outline: 3px solid rgba(32,199,180,0.22);
+  outline-offset: 2px;
+  border-color: rgba(32,199,180,0.45);
 }
 
-.form-section button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #0a6e19;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.form-section button{
+  width: 100%;
+  height: 44px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 12px;
+  background: var(--cta);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.form-section button:hover{
+  background: var(--cta-hover);
 }
 
-.form-section button:hover {
-    background-color: #005fa3;
+/* ---------------------------
+   Plasma-style top bar
+   --------------------------- */
+.plasma-topbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(245,243,239,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.plasma-topbar__inner{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.plasma-brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.plasma-brand__logo{
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.plasma-brand__text{
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111;
+}
+
+.plasma-nav{
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+
+.plasma-nav__link{
+  color: rgba(0,0,0,0.78);
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 2px;
+}
+.plasma-nav__link:hover{ color: rgba(0,0,0,0.95); }
+.plasma-nav__link.is-active{
+  color: rgba(0,0,0,0.95);
+  border-bottom: 1px solid rgba(0,0,0,0.35);
+}
+
+.plasma-actions{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.plasma-iconbtn{
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(0,0,0,0.02);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.plasma-cta{
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: #0b0b0b;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+}
+.plasma-cta:hover{ background: #1a1a1a; }
+
+/* Mobile: hide center nav */
+@media (max-width: 760px){
+  main{ padding-top: 18px; }
+  .plasma-topbar__inner{ grid-template-columns: 1fr 1fr; }
+  .plasma-nav{ display: none; }
+  .hero__inner{ grid-template-columns: 1fr; }
+  .motion-surface{ min-height: 220px; }
+}
+
+/* ---------------------------
+   Send vs Claim differentiation
+---------------------------- */
+
+/* small pill tags under hero copy */
+.hero__tags{
+  margin-top: 14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.88);
+  font-size: 12px;
+  font-weight: 850;
+}
+.tag--send{
+  border-color: rgba(86,159,140,.38);
+  background: rgba(86,159,140,.16);
+}
+.tag--claim{
+  border-color: rgba(89,134,197,.40);
+  background: rgba(89,134,197,.16);
+}
+
+/* distinct hero skins */
+.hero--send{
+  background:
+    radial-gradient(1100px 620px at 18% 12%, rgba(86,159,140,.34), transparent 60%),
+    radial-gradient(920px 560px at 78% 46%, rgba(165,193,233,.18), transparent 64%),
+    linear-gradient(135deg, var(--plasma-green-900) 0%, var(--plasma-green-700) 52%, #071110 100%);
+}
+.hero--claim{
+  background:
+    radial-gradient(1100px 620px at 22% 18%, rgba(89,134,197,.34), transparent 60%),
+    radial-gradient(900px 560px at 78% 44%, rgba(109,71,145,.22), transparent 64%),
+    linear-gradient(135deg, #06121b 0%, #102643 55%, #070f18 100%);
+}
+.hero--claim .hero__kicker::before{
+  background: var(--plasma-blue-300);
+  box-shadow: 0 0 0 6px rgba(165,193,233,.18);
+}
+
+/* make claim page grid feel different */
+.page-grid--flip{
+  grid-template-columns: .9fr 1.4fr;
+}
+@media (max-width: 980px){
+  .page-grid--flip{ grid-template-columns: 1fr; }
+}
+
+/* motion surfaces: different vibe */
+.motion-surface--send{
+  background:
+    radial-gradient(520px 320px at 30% 30%, rgba(86,159,140,.38), transparent 62%),
+    radial-gradient(520px 320px at 70% 55%, rgba(255,255,255,.10), transparent 66%),
+    rgba(255,255,255,.06);
+}
+.motion-surface--claim{
+  background:
+    radial-gradient(520px 320px at 30% 30%, rgba(89,134,197,.34), transparent 62%),
+    radial-gradient(520px 320px at 70% 55%, rgba(109,71,145,.20), transparent 66%),
+    rgba(255,255,255,.06);
+}
+
+/* presentational “mini UI” inside motion surface */
+.motion-ui{
+  position:absolute;
+  inset: 18px 18px 54px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.motion-ui--stack{
+  grid-template-columns: 1fr;
+  align-content: start;
+}
+
+.motion-card{
+  position:relative;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.18);
+  backdrop-filter: blur(10px);
+  padding: 12px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.26);
+  overflow:hidden;
+}
+.motion-card.is-on{
+  border-color: rgba(0,255,240,.22);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28), 0 0 70px rgba(0,255,240,.10);
+}
+.hero--claim .motion-card.is-on{
+  border-color: rgba(89,134,197,.28);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28), 0 0 70px rgba(89,134,197,.12);
+}
+
+.motion-badge{
+  width: 30px; height: 30px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius: 10px;
+  font-weight: 900;
+  color: rgba(255,255,255,.94);
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+}
+.motion-title{
+  margin-top: 10px;
+  font-weight: 900;
+  letter-spacing:-0.02em;
+  color: rgba(255,255,255,.94);
+}
+.motion-sub{
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.76);
+}
+.motion-icon{
+  position:absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 36px;
+  opacity: .95;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,.45));
+}
+
+/* bottom strip */
+.motion-strip{
+  position:absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  height: 34px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.16);
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 0 12px;
+}
+.dotx{
+  width:10px; height:10px; border-radius: 999px;
+  background: rgba(0,255,240,.60);
+  box-shadow: 0 0 0 6px rgba(0,255,240,.14);
+}
+.hero--claim .dotx{
+  background: rgba(165,193,233,.75);
+  box-shadow: 0 0 0 6px rgba(165,193,233,.16);
+}
+.motion-strip-text{
+  color: rgba(255,255,255,.82);
+  font-weight: 850;
+  font-size: 12.5px;
+}
+
+/* ============================
+   SEND HERO — CONTRAST FIX
+   (darker glass + stronger teal)
+============================ */
+
+/* Make the send hero darker (so white text pops) */
+.hero--send{
+  background:
+    radial-gradient(1100px 620px at 18% 12%, rgba(0,255,240,.22), transparent 60%),
+    radial-gradient(920px 560px at 78% 46%, rgba(255,255,255,.06), transparent 66%),
+    linear-gradient(135deg, #050c0b 0%, #071312 45%, #041010 100%) !important;
+}
+
+/* Ensure hero text is readable */
+.hero--send .hero__title,
+.hero--send .hero__sub,
+.hero--send .hero__kicker{
+  color: rgba(255,255,255,0.92) !important;
+}
+.hero--send .hero__sub{
+  color: rgba(255,255,255,0.76) !important;
+}
+
+/* Tags more contrast on dark hero */
+.hero--send .tag{
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.18) !important;
+  color: rgba(255,255,255,.90) !important;
+}
+.hero--send .tag--send{
+  background: rgba(0,255,240,.16) !important;
+  border-color: rgba(0,255,240,.32) !important;
+}
+
+/* Motion surface: darker glass */
+.motion-surface--send{
+  background:
+    radial-gradient(520px 320px at 30% 30%, rgba(0,255,240,.20), transparent 62%),
+    radial-gradient(520px 320px at 70% 55%, rgba(255,255,255,.06), transparent 68%),
+    rgba(255,255,255,.05) !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+}
+
+/* Motion cards: darker + teal edge on active */
+.hero--send .motion-card{
+  background: rgba(0,0,0,.22) !important;
+  border-color: rgba(255,255,255,.16) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.30) !important;
+}
+.hero--send .motion-card.is-on{
+  border-color: rgba(0,255,240,.32) !important;
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.32),
+    0 0 70px rgba(0,255,240,.14) !important;
+}
+
+/* Bottom strip: darker and readable */
+.hero--send .motion-strip{
+  background: rgba(0,0,0,.18) !important;
+  border-color: rgba(255,255,255,.16) !important;
+}
+.hero--send .motion-strip-text{
+  color: rgba(255,255,255,.86) !important;
+}
+.hero--send .dotx{
+  background: rgba(0,255,240,.70) !important;
+  box-shadow: 0 0 0 6px rgba(0,255,240,.16) !important;
+}
+
+/* Buttons on send hero: ensure visible */
+.hero--send .btn{
+  color: rgba(255,255,255,.92) !important;
+}
+.hero--send .btn-ghost{
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+.hero--send .btn-ghost:hover{
+  background: rgba(255,255,255,.14) !important;
+  border-color: rgba(255,255,255,.24) !important;
+}
+.plasma-iconbtn--logo{
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(10,21,18,0.12);
+  background: rgba(255,255,255,0.55);
+  overflow: hidden;
+}
+
+.plasma-iconbtn--logo img{
+  width: 18px;
+  height: 18px;
+  display: block;
+  opacity: 0.92;
 }

@@ -1,146 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Plasma Wallet Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="nav.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Plasma</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <main>
+    <section class="hero">
+      <div class="hero__inner">
+        <div>
+          <div class="hero__kicker">Wallet</div>
+          <div class="hero__title">Dashboard.</div>
+          <p class="hero__sub">
+            View your balance, address and quick actions. Updates automatically.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn-ghost" href="send.html">Send a link</a>
+            <a class="btn btn-ghost" href="claim.html">Claim a link</a>
+          </div>
+        </div>
 
-<header>
-  <h1>Your Plasma Wallet</h1>
-</header>
+        <div class="hero__media">
+          <div class="motion-surface" id="motionDashboardHero" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
 
-<main>
-  <section>
-    <div id="walletOutput" class="transfer-info">
-      Loading wallet...
+    <section class="card" style="margin-top: 18px;">
+      <div id="walletOutput" class="notice">
+        Loading wallet...
+      </div>
+    </section>
+
+    <div class="footer">
+      &copy; 2026 Plasma
     </div>
-  </section>
-</main>
+  </main>
 
-<footer>
-  <p>&copy; 2026 Plasma</p>
-</footer>
+  <script src="nav.js"></script>
 
-<!-- EVERYTHING MERGED BELOW -->
-<script type="module">
-  console.log("✅ dashboard script loaded");
+  <script type="module">
+    console.log("✅ dashboard script loaded");
 
-  import {
-    Wallet,
-    JsonRpcProvider,
-    formatEther,
-    Network
-  } from "https://cdn.jsdelivr.net/npm/ethers@6.16.0/dist/ethers.min.js";
+    import {
+      Wallet,
+      JsonRpcProvider,
+      formatEther,
+      Network
+    } from "https://cdn.jsdelivr.net/npm/ethers@6.16.0/dist/ethers.min.js";
 
-  console.log("✅ ethers imported");
+    console.log("✅ ethers imported");
 
-  // Check if user is logged in
-  const storedUser = sessionStorage.getItem("plasmaUser");
-  const storedPrivateKey = sessionStorage.getItem("plasmaPrivateKey");
+    const storedUser = sessionStorage.getItem("plasmaUser");
+    const storedPrivateKey = sessionStorage.getItem("plasmaPrivateKey");
 
-  let wallet_key;
-  let userProfile;
+    let wallet_key;
+    let userProfile;
 
-  if (storedUser && storedPrivateKey) {
-    // User logged in via backend
-    userProfile = JSON.parse(storedUser);
-    wallet_key = storedPrivateKey;
-    console.log("🔑 Loaded user wallet");
-    console.log("👤 User:", userProfile.username);
-  } else {
-    // Try legacy localStorage (for backward compatibility)
-    const legacyWallet = localStorage.getItem("plasmaUserWallet");
-    const legacyProfile = sessionStorage.getItem("plasmaUserProfile");
-
-    if (legacyWallet) {
-      const walletData = JSON.parse(legacyWallet);
-      wallet_key = walletData.privateKey;
-      console.log("🔑 Loaded legacy wallet");
+    if (storedUser && storedPrivateKey) {
+      userProfile = JSON.parse(storedUser);
+      wallet_key = storedPrivateKey;
     } else {
-      // Not logged in - redirect to login
-      console.warn("⚠️ No active session");
+      const legacyWallet = localStorage.getItem("plasmaUserWallet");
+      const legacyProfile = sessionStorage.getItem("plasmaUserProfile");
+
+      if (legacyWallet) {
+        const walletData = JSON.parse(legacyWallet);
+        wallet_key = walletData.privateKey;
+      } else {
+        window.location.href = "login.html";
+        throw new Error("Not logged in");
+      }
+
+      if (legacyProfile) userProfile = JSON.parse(legacyProfile);
+    }
+
+    const plasmaNetwork = Network.from({
+      name: "plasma-testnet",
+      chainId: 9746
+    });
+
+    const provider = new JsonRpcProvider("https://testnet-rpc.plasma.to", plasmaNetwork, {
+      staticNetwork: true,
+      ensAddress: null
+    });
+
+    const wallet = new Wallet(wallet_key, provider);
+
+    const output = document.getElementById("walletOutput");
+
+    async function updateBalance() {
+      try {
+        const balanceWei = await provider.getBalance(wallet.address);
+        const balanceXPL = formatEther(balanceWei);
+
+        const greeting = userProfile
+          ? `<div style="font-weight:800; letter-spacing:-0.02em; margin-bottom:6px;">
+               Welcome, ${userProfile.forename} ${userProfile.surname}
+             </div>
+             <div style="color:rgba(0,0,0,0.62); font-size:13px; margin-bottom:12px;">
+               @${userProfile.username}
+             </div>`
+          : "";
+
+        output.className = "notice success";
+        output.innerHTML = `
+          ${greeting}
+
+          <div class="card" style="box-shadow:none; margin-top: 10px;">
+            <div style="display:grid; gap: 10px;">
+              <div>
+                <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.55);">Balance</div>
+                <div style="font-size:34px; font-weight:850; letter-spacing:-0.02em; margin-top:6px;">
+                  ${Number(balanceXPL).toFixed(4)} <span style="font-size:14px; opacity:0.75;">XPL</span>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,0,0,0.55);">Wallet</div>
+                <div class="codebox mono" style="margin-top:8px;">${wallet.address}</div>
+              </div>
+
+              <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 6px;">
+                <a class="btn btn-primary" href="send.html">Send a link →</a>
+                <button class="btn btn-danger" type="button" onclick="logout()">Logout</button>
+              </div>
+
+              <div style="color:rgba(0,0,0,0.55); font-size:12px; margin-top:4px;">
+                Last updated: ${new Date().toLocaleTimeString()}
+              </div>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error("❌ Balance fetch failed:", err);
+        output.className = "notice error";
+        output.textContent = "Failed to load wallet balance. Check console.";
+      }
+    }
+
+    updateBalance();
+    setInterval(updateBalance, 5000);
+
+    window.logout = function () {
+      sessionStorage.clear();
+      localStorage.removeItem("plasmaUserWallet");
       window.location.href = "login.html";
-      throw new Error("Not logged in");
-    }
-
-    if (legacyProfile) {
-      userProfile = JSON.parse(legacyProfile);
-    }
-  }
-
-  console.log("🔑 Wallet key length:", wallet_key.length);
-
-  // Connect to Plasma Testnet (with ENS disabled)
-  const plasmaNetwork = Network.from({
-    name: "plasma-testnet",
-    chainId: 9746
-  });
-
-  const provider = new JsonRpcProvider("https://testnet-rpc.plasma.to", plasmaNetwork, {
-    staticNetwork: true,
-    ensAddress: null
-  });
-  console.log("🌐 Provider created");
-
-  // Load wallet
-  const wallet = new Wallet(wallet_key, provider);
-  console.log("👛 Wallet address:", wallet.address);
-
-  const output = document.getElementById("walletOutput");
-  if (!output) {
-    console.error("❌ walletOutput div not found");
-  } else {
-    console.log("✅ walletOutput div found");
-  }
-
-  async function updateBalance() {
-    try {
-      console.log("🔄 Fetching balance...");
-      const balanceWei = await provider.getBalance(wallet.address);
-      const balanceXPL = formatEther(balanceWei);
-
-      const greeting = userProfile
-        ? `<p><strong>Welcome, ${userProfile.forename} ${userProfile.surname}!</strong> (@${userProfile.username})</p>`
-        : '';
-
-      output.innerHTML = `
-        ${greeting}
-        <p><strong>Wallet:</strong><br>${wallet.address}</p>
-        <p><strong>Balance:</strong> ${balanceXPL} XPL</p>
-        <p><em>Last updated: ${new Date().toLocaleTimeString()}</em></p>
-        <p style="margin-top: 20px;">
-          <a href="send.html" style="padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-right: 10px;">
-            Send Crypto Link
-          </a>
-          <button onclick="logout()" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            Logout
-          </button>
-        </p>
-      `;
-
-      console.log("✅ Balance updated:", balanceXPL);
-    } catch (err) {
-      console.error("❌ Balance fetch failed:", err);
-      output.innerText = "Failed to load wallet balance. Check console.";
-    }
-  }
-
-  // Run immediately
-  updateBalance();
-
-  // Poll every 5 seconds
-  setInterval(updateBalance, 5000);
-
-  // Logout function (make it global)
-  window.logout = function() {
-    sessionStorage.clear();
-    localStorage.removeItem("plasmaUserWallet");
-    window.location.href = "login.html";
-  };
-</script>
-
+    };
+  </script>
 </body>
 </html>

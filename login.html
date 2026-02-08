@@ -1,41 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login - Plasma</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="nav.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<header>
-  <h1>Login to Plasma</h1>
-</header>
+<body class="page-video-auth">
+  <!-- Background video -->
+  <div class="bg-wrap" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/home-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-vignette"></div>
+  </div>
 
-<main>
-  <section class="form-section">
-    <form id="loginForm">
-      <label>Username</label>
-      <input id="username" type="text" required autofocus>
+  <main class="auth-main">
+    <div class="stage">
+      <!-- Glass banner (left anchored, long) -->
+      <section class="auth-banner" role="region" aria-label="Sign in">
+        <div class="auth-banner__inner">
+          <div class="auth-grid">
+            <!-- Left copy -->
+            <div class="auth-copy">
+              <div class="auth-kicker">
+                <span class="dot"></span>
+                <span>ACCOUNT</span>
+              </div>
 
-      <label>Password</label>
-      <input id="password" type="password" required>
+              <h1 class="auth-title">Sign in.</h1>
 
-      <button type="submit" id="loginButton">Login</button>
-    </form>
+              <p class="auth-sub">
+                Access your custodial wallet dashboard and manage escrow links.
+              </p>
 
-    <div id="statusOutput" style="margin-top: 20px;"></div>
+              <div class="auth-actions">
+                <!-- Secondary action: go to signup -->
+                <a class="hero-btn" href="register.html">Create account</a>
+                <a class="hero-btn hero-btn--ghost" href="index.html">Back to home</a>
+              </div>
+            </div>
 
-    <p style="text-align: center; margin-top: 30px;">
-      Don't have an account? <a href="register.html">Register here</a>
-    </p>
-  </section>
-</main>
+            <!-- Right: form -->
+            <div class="auth-formWrap">
+              <div class="formCard" aria-label="Login form">
+                <div class="formHead">
+                  <div class="formTitle">Login</div>
+                  <div class="formSub">Use your username and password.</div>
+                </div>
 
-<footer>
-  <p>&copy; 2026 Plasma</p>
-</footer>
+                <form id="loginForm" class="form" autocomplete="on">
+                  <div class="field">
+                    <label class="label" for="username">Username</label>
+                    <input
+                      id="username"
+                      name="username"
+                      class="input"
+                      type="text"
+                      autocomplete="username"
+                      required
+                    />
+                  </div>
 
-<script type="module" src="login.js"></script>
+                  <div class="field">
+                    <label class="label" for="password">Password</label>
+                    <input
+                      id="password"
+                      name="password"
+                      class="input"
+                      type="password"
+                      autocomplete="current-password"
+                      required
+                    />
+                  </div>
+
+                  <button id="loginButton" type="submit" class="hero-btn hero-btn--primary">
+                    Login →
+                  </button>
+                </form>
+
+                <div id="statusOutput" class="notice" aria-live="polite"></div>
+
+                <div class="formFoot">
+                  <span class="muted">New here?</span>
+                  <a class="link" href="register.html">Register</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer footer--dark">© 2026 Plasma</div>
+  </main>
+
+  <script src="nav.js"></script>
+  <script type="module" src="login.js"></script>
+
+  <!-- Page-local styles only -->
+  <style>
+    /* ---- Topbar: transparent / white on video ---- */
+    .page-video-auth .plasma-topbar{
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+    }
+    .page-video-auth .plasma-brand__text,
+    .page-video-auth .plasma-nav__link{
+      color: rgba(255,255,255,0.88);
+    }
+    .page-video-auth .plasma-nav__link.is-active{
+      border-bottom-color: rgba(255,255,255,0.35);
+    }
+    .page-video-auth .plasma-iconbtn{
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.92);
+    }
+    .page-video-auth .plasma-cta{
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    /* ---- Background video ---- */
+    .page-video-auth{
+      background:#000;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      overflow:hidden;
+      background:#000;
+    }
+    .bg-video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
+    }
+    .bg-vignette{
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(900px 520px at 30% 40%, rgba(0,255,240,0.16), transparent 58%),
+        linear-gradient(90deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.08) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.45) 100%);
+    }
+
+    /* ---- Layout ---- */
+    .auth-main{
+      max-width:none !important;
+      padding:0 !important;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    .stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      /* left anchored */
+      padding: 34px 22px 34px 0;
+    }
+
+    /* ---- Glass banner (long + left-out) ---- */
+    .auth-banner{
+      width: min(1320px, calc(100vw - 120px));
+      max-width:none;
+      margin-left:0;
+      transform: translateX(-10px);
+
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(10, 16, 16, 0.52);
+      backdrop-filter: blur(14px);
+
+      box-shadow:
+        0 22px 80px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(0,255,240,0.10),
+        0 0 90px rgba(0,255,240,0.18);
+
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-banner::after{
+      content:"";
+      position:absolute;
+      inset:-35%;
+      background: radial-gradient(closest-side at 78% 50%, rgba(0,255,240,0.34), transparent 55%);
+      filter: blur(10px);
+      opacity: 0.9;
+      pointer-events:none; /* critical: don't block clicks */
+    }
+    .auth-banner__inner{
+      position:relative;
+      z-index:1;
+      padding: clamp(18px, 2.2vw, 26px) clamp(18px, 3vw, 34px);
+    }
+
+    .auth-grid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    /* ---- Copy ---- */
+    .auth-kicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(0,255,240,0.55);
+      box-shadow: 0 0 0 3px rgba(0,255,240,0.18);
+    }
+    .auth-title{
+      margin:0;
+      color: rgba(255,255,255,0.92);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      font-size: clamp(42px, 4.8vw, 62px);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.50);
+    }
+    .auth-sub{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.72);
+      max-width: 62ch;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .auth-actions{
+      margin-top: 16px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Buttons (Plasma-ish) ---- */
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 10px;
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+
+      border: 1px solid rgba(255,255,255,0.16);
+      color: rgba(255,255,255,0.90);
+      background: rgba(255,255,255,0.08);
+      transition: transform .14s ease, background .14s ease, border-color .14s ease;
+      user-select:none;
+    }
+    .hero-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .hero-btn--primary{
+      background: rgba(0,255,240,0.16);
+      border-color: rgba(0,255,240,0.28);
+      box-shadow: 0 10px 30px rgba(0,255,240,0.16);
+      color: rgba(255,255,255,0.95);
+    }
+    .hero-btn--primary:hover{
+      background: rgba(0,255,240,0.20);
+      border-color: rgba(0,255,240,0.34);
+    }
+    .hero-btn--ghost{
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ---- Form card (ensures typing works) ---- */
+    .auth-formWrap{
+      position: relative;
+      z-index: 3; /* above any hero glow */
+      pointer-events: auto;
+    }
+    .formCard{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      padding: 16px;
+      pointer-events: auto;
+    }
+    .formHead{ margin-bottom: 10px; }
+    .formTitle{
+      color: rgba(255,255,255,0.90);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 16px;
+    }
+    .formSub{
+      margin-top: 6px;
+      color: rgba(255,255,255,0.66);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .form{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      margin-top: 12px;
+      pointer-events: auto;
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .label{
+      color: rgba(255,255,255,0.74);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+    .input{
+      height: 40px;
+      width: 100%;
+      padding: 0 12px;
+      border-radius: 10px;
+
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.92);
+
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      pointer-events: auto; /* critical */
+    }
+    .input::placeholder{ color: rgba(255,255,255,0.55); }
+    .input:focus{
+      border-color: rgba(0,255,240,0.45);
+      box-shadow: 0 0 0 4px rgba(0,255,240,0.14);
+    }
+
+    .notice{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    #statusOutput:empty{ display:none; }
+
+    .formFoot{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      justify-content:center;
+      font-size: 13px;
+    }
+    .muted{ color: rgba(255,255,255,0.66); }
+    .link{
+      color: rgba(255,255,255,0.92);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(255,255,255,0.28);
+      padding-bottom: 1px;
+    }
+    .link:hover{ border-bottom-color: rgba(255,255,255,0.55); }
+
+    .footer--dark{
+      padding: 18px 22px 26px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .stage{
+        padding: 28px 14px;
+      }
+      .auth-banner{
+        width: calc(100vw - 28px);
+        transform: none;
+      }
+      .auth-grid{
+        grid-template-columns: 1fr;
+      }
+      .auth-actions{
+        margin-bottom: 8px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .bg-video{ display:none; }
+      .bg-wrap{ background:#081010; }
+    }
+  </style>
 </body>
 </html>

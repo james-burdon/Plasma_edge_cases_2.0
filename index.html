@@ -1,173 +1,698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Plasma Escrow Links</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .hero {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      border-radius: 8px;
-      margin-bottom: 40px;
-    }
-
-    .hero h1 {
-      font-size: 3em;
-      margin: 0 0 20px 0;
-    }
-
-    .hero p {
-      font-size: 1.3em;
-      opacity: 0.9;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin: 40px 0;
-    }
-
-    .feature-card {
-      background: #f5f5f5;
-      padding: 30px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .feature-card h3 {
-      margin-top: 0;
-      color: #667eea;
-    }
-
-    .nav-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin: 40px 0;
-    }
-
-    .nav-button {
-      display: block;
-      padding: 20px;
-      background: #667eea;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .nav-button:hover {
-      transform: translateY(-2px);
-      background: #764ba2;
-    }
-
-    .nav-button.secondary {
-      background: #48bb78;
-    }
-
-    .nav-button.secondary:hover {
-      background: #38a169;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<header>
-  <h1>🚀 Plasma Escrow Links</h1>
-</header>
+<body class="home-clean">
+  <main class="home">
+    <section class="heroWrap">
+      <div class="container">
+        <div class="heroPanel">
+          <div class="heroGrid">
+            <div class="heroCopy">
+              <div class="kicker">
+                <span class="dot"></span>
+                <span>PLASMA • ESCROW LINKS</span>
+              </div>
 
-<main>
-  <div class="hero">
-    <h1>Send Crypto to Anyone</h1>
-    <p>No wallet? No problem. Just click a link.</p>
-  </div>
+              <h1 class="heroTitle">Stablecoins.<br/>Sent by link.</h1>
 
-  <section>
-    <h2>What is Plasma Escrow Links?</h2>
-    <p>
-      Send cryptocurrency to anyone via a simple link - even if they don't have a wallet yet!
-      Built on the Plasma blockchain with secure escrow smart contracts.
-    </p>
-  </section>
+              <p class="heroSub">
+                Create an escrow link, share it anywhere, and let recipients claim —
+                even if they don’t already have a wallet.
+              </p>
 
-  <div class="features">
-    <div class="feature-card">
-      <h3>🔗 Link-Based</h3>
-      <p>Send crypto via shareable links. No complex wallet addresses needed.</p>
-    </div>
-    <div class="feature-card">
-      <h3>🔒 Secure Escrow</h3>
-      <p>Funds locked on-chain until claimed by recipient or returned to sender.</p>
-    </div>
-    <div class="feature-card">
-      <h3>👛 Auto-Wallet</h3>
-      <p>Recipients without wallets can create one automatically when claiming.</p>
-    </div>
-    <div class="feature-card">
-      <h3>⏱️ Time-Locked</h3>
-      <p>Links expire after set duration. Unclaimed funds return to sender.</p>
-    </div>
-  </div>
+              <div class="chips" aria-label="Highlights">
+                <span class="chip">Escrowed</span>
+                <span class="chip">Shareable</span>
+                <span class="chip">Wallet-optional</span>
+                <span class="chip">Fast claim</span>
+              </div>
 
-  <section>
-    <h2>Get Started</h2>
-    <div class="nav-buttons">
-      <a href="login.html" class="nav-button">
-        🔐 Login
-      </a>
-      <a href="register.html" class="nav-button">
-        🆕 Create Account
-      </a>
-      <a href="send.html" class="nav-button secondary">
-        💸 Send Crypto Link
-      </a>
-      <a href="dashboard.html" class="nav-button secondary">
-        📊 My Dashboard
-      </a>
-    </div>
-  </section>
+              <div class="ctaRow">
+                <a class="btnX btnPrimary" href="send.html">Send a link</a>
+                <a class="btnX btnGhost" href="claim.html">Claim a link</a>
+                <a class="btnX btnGhost" href="login.html">Sign in page →</a>
+              </div>
 
-  <section style="margin-top: 40px;">
-    <h2>How It Works</h2>
-    <ol style="font-size: 1.1em; line-height: 2;">
-      <li><strong>Create Link:</strong> Choose amount and recipient email</li>
-      <li><strong>Share Link:</strong> Send via email, SMS, or any messenger</li>
-      <li><strong>Recipient Claims:</strong> Click link to receive funds</li>
-      <li><strong>Auto-Wallet:</strong> New users get instant custodial wallet</li>
-    </ol>
-  </section>
+              <div class="micro">
+                Built for a pitch-ready demo: minimal steps, clear flows, and a sleek UI.
+              </div>
+            </div>
 
-  <section style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-top: 40px;">
-    <h3>⚠️ Setup Required</h3>
-    <p>
-      Before using the app, you need to deploy the smart contract and update the configuration files.
-      Follow the instructions in:
-    </p>
-    <ul>
-      <li><strong>INTEGRATION_CHECKLIST.md</strong> - Step-by-step setup guide</li>
-      <li><strong>SETUP_GUIDE.md</strong> - Detailed documentation</li>
-      <li><strong>README.md</strong> - Overview and quick start</li>
-    </ul>
-  </section>
+            <!-- Right: storyboard slideshow -->
+            <div class="heroMedia" aria-label="Product storyboard">
+              <div class="mediaCard mediaStoryboard" aria-label="How it works animation">
+                <div class="sbGlow" aria-hidden="true"></div>
 
-  <section style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-top: 20px;">
-    <h3>🛠️ Development Tools</h3>
-    <p><strong><a href="/admin.html">Admin Panel</a></strong> - Manage user accounts (for testing)</p>
-    <p style="font-size: 0.9em; color: #666;">
-      Use this to view, delete, or reset user accounts during development.
-    </p>
-  </section>
-</main>
+                <div class="sbHeader">
+                  <div class="sbPill">Live demo</div>
+                  <div class="sbHint">Create → Copy → Share → Claim</div>
+                </div>
 
-<footer>
-  <p>&copy; 2026 Plasma | Built for Hackathon 2.0</p>
-</footer>
+                <div class="sbStage">
+                  <div class="sbStep is-active">
+                    <div class="sbBadge">1</div>
+                    <div class="sbTitle">Create link</div>
+                    <div class="sbDesc">Set amount + recipient.</div>
+                    <div class="sbArt">🔗</div>
+                  </div>
 
+                  <div class="sbStep">
+                    <div class="sbBadge">2</div>
+                    <div class="sbTitle">Copy</div>
+                    <div class="sbDesc">One tap to copy.</div>
+                    <div class="sbArt">📋</div>
+                  </div>
+
+                  <div class="sbStep">
+                    <div class="sbBadge">3</div>
+                    <div class="sbTitle">Share</div>
+                    <div class="sbDesc">Send anywhere.</div>
+                    <div class="sbArt">✉️</div>
+                  </div>
+
+                  <div class="sbStep sbFinal">
+                    <div class="sbBadge">4</div>
+                    <div class="sbTitle">Claimed</div>
+                    <div class="sbDesc">Funds received. Cha-ching.</div>
+                    <div class="sbArt sbClink">🥂</div>
+                    <div class="sbConfetti" aria-hidden="true">💸</div>
+                  </div>
+                </div>
+
+                <div class="sbFooter">
+                  <div class="sbProgress"><span></span></div>
+                  <!-- removed caption line -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="sectionRow">
+          <div class="sectionTitle">How it works</div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="stepNum">1</div>
+              <div class="stepTitle">Create</div>
+              <div class="stepSub">Choose amount + recipient details.</div>
+            </div>
+
+            <div class="step">
+              <div class="stepNum">2</div>
+              <div class="stepTitle">Share</div>
+              <div class="stepSub">Send the link anywhere.</div>
+            </div>
+
+            <div class="step">
+              <div class="stepNum">3</div>
+              <div class="stepTitle">Claim</div>
+              <div class="stepSub">Recipient claims funds securely.</div>
+            </div>
+
+            <div class="step">
+              <div class="stepNum">4</div>
+              <div class="stepTitle">Auto-wallet</div>
+              <div class="stepSub">New users can create a wallet instantly.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="cards2">
+          <div class="cardLite">
+            <div class="cardLiteTitle">Get started</div>
+            <div class="cardLiteSub">Sign in to use account features, or go straight to send/claim.</div>
+            <div class="ctaMini">
+              <a class="btnX btnGhost" href="login.html">Sign in page</a>
+              <a class="btnX btnGhost" href="register.html">Create account</a>
+              <a class="btnX btnPrimary" href="send.html">Send</a>
+              <a class="btnX btnPrimary" href="claim.html">Claim</a>
+            </div>
+          </div>
+
+          <div class="cardLite">
+            <div class="cardLiteTitle">Account & activity</div>
+            <div class="cardLiteSub">
+              View your wallet details and manage escrow links after signing in.
+            </div>
+            <div class="ctaMini">
+              <a class="btnX btnPrimary" href="login.html">Sign in page →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup / dev tools -->
+        <details class="details">
+          <summary class="detailsSum">
+            <span>Setup & dev tools</span>
+            <span class="detailsHint">Open</span>
+          </summary>
+
+          <div class="detailsBody">
+            <div class="notice warn">
+              <div class="noticeTitle">Setup required</div>
+              <div class="noticeSub">
+                Deploy the contract + update config files. Follow:
+                <div class="list">
+                  <div>• <strong>INTEGRATION_CHECKLIST.md</strong> — step-by-step setup</div>
+                  <div>• <strong>SETUP_GUIDE.md</strong> — detailed documentation</div>
+                  <div>• <strong>README.md</strong> — overview and quick start</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="notice info">
+              <div class="noticeTitle">Admin</div>
+              <div class="noticeSub">
+                <strong><a href="/admin.html">Admin Panel</a></strong> — manage user accounts (testing)
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <div class="footerLite">© 2026 Plasma</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+
+  <!-- Slideshow animation (index-only) -->
+  <script>
+    (function () {
+      function init() {
+        const root = document.querySelector(".mediaStoryboard");
+        if (!root) return;
+
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const first = root.querySelector(".sbStep");
+          if (first) first.classList.add("is-active");
+          return;
+        }
+
+        const steps = Array.from(root.querySelectorAll(".sbStep"));
+        const bar = root.querySelector(".sbProgress span");
+        if (!steps.length || !bar) return;
+
+        let idx = 0;
+        const stepMs = 2400;
+        let timer = null;
+
+        function restartProgress() {
+          bar.style.transition = "none";
+          bar.style.width = "0%";
+          void bar.offsetWidth;
+          bar.style.transition = `width ${stepMs}ms linear`;
+          bar.style.width = "100%";
+        }
+
+        function show(i) {
+          steps.forEach((el, j) => el.classList.toggle("is-active", j === i));
+          restartProgress();
+        }
+
+        function start() {
+          show(idx);
+          timer = setInterval(() => {
+            idx = (idx + 1) % steps.length;
+            show(idx);
+          }, stepMs);
+        }
+
+        function stop() {
+          if (timer) clearInterval(timer);
+          timer = null;
+        }
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) stop();
+          else start();
+        });
+
+        start();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+
+  <!-- Page-local styles -->
+  <style>
+    /* Layout */
+    .home-clean{ background:#f3f1ec; color:#0a1512; }
+    .home{ max-width:none !important; padding: 0 !important; }
+    .container{ width: min(1120px, calc(100vw - 44px)); margin: 0 auto; }
+
+    /* Hero wrapper */
+    .heroWrap{
+      padding: 26px 0 34px;
+      background:
+        radial-gradient(900px 520px at 12% 20%, rgba(0,255,240,0.10), transparent 60%),
+        radial-gradient(900px 520px at 88% 10%, rgba(0,140,255,0.08), transparent 60%);
+    }
+
+    /* HERO PANEL (boosted contrast) */
+    .heroPanel{
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+
+      background: radial-gradient(900px 520px at 76% 40%, rgba(0,255,240,0.16), transparent 55%),
+                  linear-gradient(135deg, #050c0b 0%, #071312 40%, #041010 100%);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow:
+        0 26px 90px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(0,255,240,0.10),
+        0 0 80px rgba(0,255,240,0.16);
+    }
+    .heroPanel::after{
+      content:"";
+      position:absolute;
+      inset:-35%;
+      background: radial-gradient(closest-side at 72% 50%, rgba(0,255,240,0.34), transparent 60%);
+      filter: blur(10px);
+      opacity: 1;
+      pointer-events:none;
+    }
+
+    .heroGrid{
+      position: relative;
+      z-index: 1;
+      display:grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: clamp(18px, 2.6vw, 30px);
+    }
+
+    .kicker{
+      display:flex; align-items:center; gap:10px;
+      color: rgba(255,255,255,0.74);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(0,255,240,0.65);
+      box-shadow: 0 0 0 3px rgba(0,255,240,0.22);
+    }
+
+    .heroTitle{
+      margin: 0;
+      color: rgba(255,255,255,0.96);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+      font-size: clamp(44px, 5.4vw, 68px);
+      text-shadow: 0 14px 40px rgba(0,0,0,0.55);
+    }
+
+    .heroSub{
+      margin-top: 12px;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 62ch;
+    }
+
+    .chips{ margin-top: 14px; display:flex; flex-wrap:wrap; gap: 8px; }
+    .chip{
+      display:inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.88);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Buttons (higher contrast) */
+    .ctaRow{ margin-top: 16px; display:flex; gap: 10px; flex-wrap: wrap; }
+    .btnX{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      user-select:none;
+      transition: transform .14s ease, background .14s ease, border-color .14s ease;
+    }
+    .btnX:hover{ transform: translateY(-1px); }
+
+    .btnPrimary{
+      background: rgba(0,255,240,0.22);
+      border: 1px solid rgba(0,255,240,0.38);
+      color: rgba(255,255,255,0.94);
+      box-shadow: 0 12px 34px rgba(0,255,240,0.18);
+    }
+    .btnPrimary:hover{
+      background: rgba(0,255,240,0.28);
+      border-color: rgba(0,255,240,0.46);
+    }
+
+    .btnGhost{
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.92);
+    }
+    .btnGhost:hover{
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.24);
+    }
+
+    .micro{
+      margin-top: 12px;
+      color: rgba(255,255,255,0.64);
+      font-size: 13px;
+    }
+
+    /* Media card */
+    .heroMedia{ display:flex; justify-content:flex-end; }
+    .mediaCard{
+      width: min(460px, 100%);
+      height: 220px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Storyboard */
+    .mediaStoryboard{ position: relative; overflow: hidden; }
+
+    .sbGlow{
+      position:absolute;
+      inset:-30%;
+      background: radial-gradient(closest-side at 70% 40%, rgba(0,255,240,0.30), transparent 60%);
+      filter: blur(10px);
+      opacity: 1;
+      pointer-events:none;
+    }
+
+    .sbHeader{
+      position:absolute;
+      left:14px; right:14px; top:14px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 2;
+      pointer-events:none;
+    }
+
+    .sbPill{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.26);
+      color: rgba(255,255,255,0.90);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    .sbHint{
+      color: rgba(255,255,255,0.82);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .sbStage{
+      position:absolute;
+      inset: 0;
+      padding: 56px 14px 56px;
+    }
+
+    .sbStep{
+      position:absolute;
+      inset: 56px 14px 56px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+      padding: 14px;
+
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .sbStep.is-active{
+      opacity: 1;
+      transform: translateY(0);
+      border-color: rgba(0,255,240,0.28);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.34),
+        0 0 0 1px rgba(0,255,240,0.12),
+        0 0 60px rgba(0,255,240,0.14);
+    }
+
+    .sbBadge{
+      width: 30px; height: 30px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius: 10px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .sbTitle{
+      margin-top: 10px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.94);
+      font-size: 16px;
+    }
+
+    .sbDesc{
+      margin-top: 6px;
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.45;
+      max-width: 34ch;
+    }
+
+    .sbArt{
+      position:absolute;
+      right: 14px;
+      bottom: 14px;
+      font-size: 44px;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,0.45));
+      opacity: 0.95;
+    }
+
+    .sbFinal .sbDesc{ max-width: 40ch; }
+
+    .sbClink{
+      animation: clink 1.2s ease-in-out infinite;
+      transform-origin: 80% 80%;
+    }
+
+    .sbConfetti{
+      position:absolute;
+      right: 64px;
+      bottom: 22px;
+      font-size: 22px;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .sbFinal.is-active .sbConfetti{
+      opacity: 0.95;
+      transform: translateY(0);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    @keyframes clink{
+      0%, 100%{ transform: rotate(0deg) translateY(0); }
+      50%{ transform: rotate(-6deg) translateY(-2px); }
+    }
+
+    .sbFooter{
+      position:absolute;
+      left:14px; right:14px; bottom:14px;
+      z-index: 2;
+      pointer-events:none;
+    }
+
+    .sbProgress{
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      overflow: hidden;
+    }
+
+    .sbProgress span{
+      display:block;
+      height:100%;
+      width:0%;
+      background: rgba(0,255,240,0.55);
+      box-shadow: 0 0 22px rgba(0,255,240,0.30);
+    }
+
+    /* Sections below hero */
+    .sectionRow{
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(10,21,18,0.10);
+      background: rgba(255,255,255,0.68);
+      box-shadow: 0 10px 30px rgba(10,21,18,0.06);
+    }
+    .sectionTitle{
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 16px;
+    }
+
+    .steps{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .step{
+      border-radius: 16px;
+      border: 1px solid rgba(10,21,18,0.10);
+      background: rgba(255,255,255,0.72);
+      padding: 14px;
+      box-shadow: 0 10px 24px rgba(10,21,18,0.05);
+    }
+    .stepNum{
+      width: 30px; height: 30px; border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      background: rgba(10,21,18,0.06);
+      border: 1px solid rgba(10,21,18,0.10);
+      margin-bottom: 10px;
+    }
+    .stepTitle{ font-weight: 900; letter-spacing:-0.02em; }
+    .stepSub{ margin-top: 6px; color: rgba(10,21,18,0.68); font-size: 13px; line-height: 1.4; }
+
+    .cards2{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .cardLite{
+      border-radius: 18px;
+      border: 1px solid rgba(10,21,18,0.10);
+      background: rgba(255,255,255,0.72);
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(10,21,18,0.06);
+    }
+    .cardLiteTitle{ font-weight: 900; letter-spacing:-0.02em; }
+    .cardLiteSub{ margin-top: 6px; color: rgba(10,21,18,0.68); font-size: 13px; line-height: 1.4; }
+    .ctaMini{ margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    .details{
+      margin-top: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(10,21,18,0.10);
+      background: rgba(255,255,255,0.68);
+      overflow: hidden;
+    }
+    .detailsSum{
+      cursor: pointer;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      list-style: none;
+    }
+    .detailsSum::-webkit-details-marker{ display:none; }
+    .detailsHint{ font-weight: 800; color: rgba(10,21,18,0.60); font-size: 13px; }
+    .detailsBody{ padding: 0 16px 16px; }
+
+    .notice{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(10,21,18,0.10);
+      background: rgba(0,0,0,0.03);
+    }
+    .notice.warn{ background: rgba(255,196,0,0.10); border-color: rgba(255,196,0,0.22); }
+    .notice.info{ background: rgba(0,140,255,0.08); border-color: rgba(0,140,255,0.16); }
+    .noticeTitle{ font-weight: 900; letter-spacing:-0.02em; }
+    .noticeSub{ margin-top: 6px; color: rgba(10,21,18,0.72); font-size: 13px; line-height: 1.5; }
+    .list{ margin-top: 8px; line-height: 1.85; }
+
+    .footerLite{
+      margin-top: 16px;
+      text-align:center;
+      color: rgba(10,21,18,0.55);
+      font-size: 13px;
+      padding-bottom: 6px;
+    }
+
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .heroMedia{ justify-content: flex-start; }
+      .mediaCard{ height: 200px; width: 100%; }
+      .steps{ grid-template-columns: 1fr 1fr; }
+      .cards2{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px){
+      .steps{ grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .sbStep{ transition:none; }
+      .sbClink{ animation:none; }
+    }
+    /* --- Fix low-contrast buttons inside the light cards --- */
+.cardLite .btnGhost{
+  background: rgba(10,21,18,0.05);
+  border: 1px solid rgba(10,21,18,0.14);
+  color: rgba(10,21,18,0.92);
+  box-shadow: none;
+}
+.cardLite .btnGhost:hover{
+  background: rgba(10,21,18,0.08);
+  border-color: rgba(10,21,18,0.20);
+}
+
+/* Make primary buttons readable on light surfaces (Plasma black pill) */
+.cardLite .btnPrimary{
+  background: #0a1512;
+  border: 1px solid rgba(10,21,18,0.20);
+  color: rgba(255,255,255,0.94);
+  box-shadow: 0 10px 24px rgba(10,21,18,0.14);
+}
+.cardLite .btnPrimary:hover{
+  background: #071110;
+  border-color: rgba(10,21,18,0.26);
+}
+
+  </style>
+  
 </body>
 </html>
