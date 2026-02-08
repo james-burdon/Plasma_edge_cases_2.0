@@ -806,3 +806,56 @@ footer{
   color: rgba(10,21,18,0.55);
   font-size: 13px;
 }
+/* ============================
+   Fix motion card text layout
+   (Send/Claim right-side steps)
+============================ */
+
+.motion-surface .motion-card{
+  /* turn each card into a proper 3-column layout:
+     [badge] [text] [icon] */
+  display: grid;
+  grid-template-columns: 40px 1fr 56px;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: center;
+}
+
+/* badge left, centered vertically */
+.motion-surface .motion-badge{
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+/* title/sub in middle */
+.motion-surface .motion-title{
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0 !important;
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.92);
+}
+.motion-surface .motion-sub{
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0 !important;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.72);
+}
+
+/* icon on right – disable absolute positioning */
+.motion-surface .motion-icon{
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  position: static !important;
+  right: auto !important;
+  bottom: auto !important;
+  justify-self: end;
+  align-self: center;
+  font-size: 34px;
+  opacity: 0.95;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,.45));
+}
