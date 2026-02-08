@@ -6,7 +6,7 @@ export const config = {
   NETWORK_NAME: "plasma-testnet",
 
   // Contract addresses (MUST DEPLOY FIRST)
-  ESCROW_CONTRACT_ADDRESS: "0x8826F1D05Fc8c403df65dC57E3b8F671344a48a", // Deployed contract
+  ESCROW_CONTRACT_ADDRESS: "0x8826F1D05Fc8c403df65dC57E3b8F6711344a48a", // Deployed contract
 
   // Default settings
   DEFAULT_TTL: 86400, // 24 hours in seconds

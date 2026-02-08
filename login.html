@@ -80,6 +80,16 @@
                   </button>
                 </form>
 
+                <div class="formDivider">
+                  <span class="divider-line"></span>
+                  <span class="divider-text">OR</span>
+                  <span class="divider-line"></span>
+                </div>
+
+                <button id="deploymentWalletButton" type="button" class="hero-btn hero-btn--wallet">
+                  Use Deployment Wallet
+                </button>
+
                 <div id="statusOutput" class="notice" aria-live="polite"></div>
 
                 <div class="formFoot">
@@ -384,6 +394,40 @@
       padding-bottom: 1px;
     }
     .link:hover{ border-bottom-color: rgba(255,255,255,0.55); }
+
+    .formDivider{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin: 14px 0 10px;
+    }
+    .divider-line{
+      flex:1;
+      height:1px;
+      background: rgba(255,255,255,0.14);
+    }
+    .divider-text{
+      color: rgba(255,255,255,0.50);
+      font-size: 11px;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+    .hero-btn--wallet{
+      width:100%;
+      cursor:pointer;
+      font-size: 13px;
+      background: rgba(0,180,255,0.12);
+      border-color: rgba(0,180,255,0.28);
+      box-shadow: 0 8px 24px rgba(0,180,255,0.12);
+    }
+    .hero-btn--wallet:hover{
+      background: rgba(0,180,255,0.18);
+      border-color: rgba(0,180,255,0.36);
+    }
+    .hero-btn--wallet:disabled{
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
     .footer--dark{
       padding: 18px 22px 26px;

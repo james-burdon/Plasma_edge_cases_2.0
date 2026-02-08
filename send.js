@@ -11,19 +11,7 @@ import {
 
 // Configuration
 const RPC_URL = "https://testnet-rpc.plasma.to";
-let ESCROW_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
-
-// Fetch contract address from backend on load
-(async () => {
-  try {
-    const response = await fetch('http://localhost:3000/api/config');
-    const config = await response.json();
-    if (config.deployed && config.contractAddress && config.contractAddress !== "YOUR_DEPLOYED_CONTRACT_ADDRESS") {
-      ESCROW_CONTRACT_ADDRESS = config.contractAddress;
-      console.log("✅ Contract loaded:", ESCROW_CONTRACT_ADDRESS);
-    }
-  } catch (e) { console.warn("Could not load contract address"); }
-})();
+const ESCROW_CONTRACT_ADDRESS = "0x8826F1D05Fc8c403df65dC57E3b8F6711344a48a";
 
 // EscrowLinks ABI (only the functions we need)
 const ESCROW_ABI = [
@@ -41,15 +29,15 @@ if (!storedPrivateKey) {
 }
 
 // Create provider with Plasma network config (ENS disabled)
-// IMPORTANT: staticNetwork prevents ENS lookups
 const plasmaNetwork = Network.from({
   name: "plasma-testnet",
-  chainId: 9746
+  chainId: 9746,
+  ensAddress: null,
+  ensNetwork: null
 });
 
 const provider = new JsonRpcProvider(RPC_URL, plasmaNetwork, {
-  staticNetwork: true,
-  ensAddress: null
+  staticNetwork: plasmaNetwork
 });
 
 // Use logged-in user's wallet

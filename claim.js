@@ -9,7 +9,7 @@ import {
 
 // Configuration
 const RPC_URL = "https://testnet-rpc.plasma.to";
-const ESCROW_CONTRACT_ADDRESS = "0x8826F1D05Fc8c403df65dC57E3b8F671344a48a"; // Deployed contract
+const ESCROW_CONTRACT_ADDRESS = "0x8826F1D05Fc8c403df65dC57E3b8F6711344a48a"; // Deployed contract
 
 // EscrowLinks ABI
 const ESCROW_ABI = [
@@ -20,12 +20,13 @@ const ESCROW_ABI = [
 // Create provider with Plasma network config (ENS disabled)
 const plasmaNetwork = Network.from({
   name: "plasma-testnet",
-  chainId: 9746
+  chainId: 9746,
+  ensAddress: null,
+  ensNetwork: null
 });
 
 const provider = new JsonRpcProvider(RPC_URL, plasmaNetwork, {
-  staticNetwork: true,
-  ensAddress: null
+  staticNetwork: plasmaNetwork
 });
 
 // Parse URL parameters

@@ -2,11 +2,45 @@ const API_URL = "http://localhost:3000/api";
 
 const statusOutput = document.getElementById("statusOutput");
 const loginButton = document.getElementById("loginButton");
+const deploymentWalletButton = document.getElementById("deploymentWalletButton");
 
 function updateStatus(message, isError = false) {
   statusOutput.innerHTML = `<p style="color: ${isError ? 'red' : 'green'}">${message}</p>`;
 }
 
+// Login with deployment wallet (has funds)
+deploymentWalletButton.addEventListener("click", async () => {
+  try {
+    deploymentWalletButton.disabled = true;
+    updateStatus("Loading deployment wallet...");
+
+    const response = await fetch(`${API_URL}/deployment-wallet`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to load deployment wallet");
+    }
+
+    sessionStorage.setItem("plasmaPrivateKey", data.privateKey);
+    sessionStorage.setItem("plasmaUser", JSON.stringify({
+      username: "deployment",
+      walletAddress: data.address
+    }));
+
+    updateStatus("Logged in with deployment wallet! Redirecting...");
+
+    setTimeout(() => {
+      window.location.href = "send.html";
+    }, 1000);
+
+  } catch (error) {
+    console.error("Deployment wallet error:", error);
+    updateStatus(`${error.message}`, true);
+    deploymentWalletButton.disabled = false;
+  }
+});
+
+// Regular login
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
