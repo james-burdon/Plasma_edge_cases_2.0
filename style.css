@@ -123,3 +123,71 @@ footer {
 .form-section button:hover {
     background-color: #005fa3;
 }
+/* ===========================
+   UI polish layer (append-only)
+   Keeps existing layout intact
+   =========================== */
+
+:root{
+  --brand: #0a6e19;
+  --brand-hover: #075513;     /* darker green (fixes the blue hover mismatch) */
+  --bg: #f4f4f4;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Slightly nicer page background (safe + subtle) */
+body{
+  color: var(--text);
+  background:
+    radial-gradient(900px 500px at 15% 10%, rgba(10,110,25,0.10), transparent 60%),
+    var(--bg);
+}
+
+/* Cards/sections feel more modern */
+section{
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* Buttons: unify hover to brand (your current hover goes blue) */
+.action-button,
+.form-section button{
+  background-color: var(--brand);
+}
+
+.action-button:hover,
+.form-section button:hover{
+  background-color: var(--brand-hover);
+}
+
+/* Better focus states (accessibility + “premium” feel) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible{
+  outline: 3px solid rgba(10,110,25,0.25);
+  outline-offset: 2px;
+}
+
+/* Inputs: nicer focus */
+.form-section input[type="text"],
+.form-section input[type="password"]{
+  border: 1px solid rgba(0,0,0,0.16);
+}
+
+.form-section input[type="text"]:focus,
+.form-section input[type="password"]:focus{
+  border-color: rgba(10,110,25,0.45);
+  box-shadow: 0 0 0 4px rgba(10,110,25,0.15);
+}
+
+/* Nav: wraps cleanly on small screens */
+header nav ul{
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 12px;
+}
