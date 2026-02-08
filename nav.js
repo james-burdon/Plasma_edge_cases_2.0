@@ -18,7 +18,7 @@
   header.className = "plasma-topbar";
   header.innerHTML = `
     <div class="plasma-topbar__inner">
-      <a class="plasma-brand" href="index.html" aria-label="Plasma home">
+      <a class="plasma-brand" href="https://plasma.to" target="_blank" rel="noopener" aria-label="Plasma home">
         <img class="plasma-brand__logo" id="plasmaLogo" alt="Plasma" />
         <span class="plasma-brand__text" id="plasmaLogoText" style="display:none;">Plasma</span>
       </a>
@@ -34,7 +34,7 @@
 
       <div class="plasma-actions">
         <button class="plasma-iconbtn" type="button" aria-label="Language / region (placeholder)" title="Language / region">
-          <a class="plasma-iconbtn plasma-iconbtn--logo" href="index.html" aria-label="Home">
+          <a class="plasma-iconbtn plasma-iconbtn--logo" href="https://plasma.to" target="_blank" rel="noopener" aria-label="Home">
   <img src="assets/Logo_symbol_dark.svg" alt="" />
 </a>
 

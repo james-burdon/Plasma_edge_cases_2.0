@@ -48,8 +48,40 @@ const statusOutput = document.getElementById("statusOutput");
 const linkOutput = document.getElementById("linkOutput");
 const sendButton = document.getElementById("sendButton");
 
-function updateStatus(message, isError = false) {
-  statusOutput.innerHTML = `<p style="color: ${isError ? 'red' : 'green'}">${message}</p>`;
+let statusStep = 0;
+const totalSteps = 4;
+
+function updateStatus(message, isError = false, isDone = false) {
+  if (isError) {
+    statusOutput.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,60,60,.8);box-shadow:0 0 0 4px rgba(255,60,60,.15);flex-shrink:0;"></div>
+        <span style="font-weight:700;font-size:13px;color:rgba(180,30,30,.9);">${message}</span>
+      </div>`;
+    return;
+  }
+  if (isDone) {
+    statusOutput.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:rgba(32,199,180,.9);box-shadow:0 0 0 4px rgba(32,199,180,.2);flex-shrink:0;"></div>
+        <span style="font-weight:800;font-size:13px;color:rgba(10,21,18,.86);">${message}</span>
+      </div>
+      <div style="width:100%;height:6px;border-radius:6px;background:rgba(10,21,18,.08);overflow:hidden;margin-top:10px;">
+        <div style="width:100%;height:100%;border-radius:6px;background:linear-gradient(90deg,rgba(32,199,180,.7),rgba(32,199,180,.9));"></div>
+      </div>`;
+    return;
+  }
+  statusStep++;
+  const pct = Math.min((statusStep / totalSteps) * 100, 95);
+  statusOutput.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div style="width:10px;height:10px;border-radius:50%;background:rgba(32,199,180,.6);box-shadow:0 0 0 4px rgba(32,199,180,.15);flex-shrink:0;"></div>
+      <span style="font-weight:700;font-size:13px;color:rgba(10,21,18,.86);">${message}</span>
+    </div>
+    <div style="width:100%;height:6px;border-radius:6px;background:rgba(10,21,18,.08);overflow:hidden;">
+      <div style="width:${pct}%;height:100%;border-radius:6px;background:linear-gradient(90deg,rgba(32,199,180,.7),rgba(32,199,180,.9));transition:width .4s ease;"></div>
+    </div>
+    <div style="margin-top:6px;font-size:11px;color:rgba(10,21,18,.5);font-weight:700;">Step ${statusStep} of ${totalSteps}</div>`;
 }
 
 document.getElementById("sendForm").addEventListener("submit", async (e) => {
@@ -69,7 +101,8 @@ document.getElementById("sendForm").addEventListener("submit", async (e) => {
     }
 
     sendButton.disabled = true;
-    updateStatus("⏳ Generating secret and creating escrow link...");
+    statusStep = 0;
+    updateStatus("Generating secret and creating escrow link...");
 
     // 1. Generate random secret (32 bytes)
     const secret = hexlify(randomBytes(32));
@@ -84,7 +117,7 @@ document.getElementById("sendForm").addEventListener("submit", async (e) => {
     console.log("📝 Memo hash:", memoHash);
 
     // 4. Call createLink on the contract
-    updateStatus("⏳ Submitting transaction to blockchain...");
+    updateStatus("Submitting transaction to blockchain...");
     const tx = await escrowContract.createLink(
       hash,
       expirySeconds,
@@ -92,7 +125,7 @@ document.getElementById("sendForm").addEventListener("submit", async (e) => {
       { value: parseEther(amount) }
     );
 
-    updateStatus("⏳ Waiting for transaction confirmation...");
+    updateStatus("Waiting for transaction confirmation...");
     const receipt = await tx.wait();
     console.log("✅ Transaction confirmed:", receipt);
 
@@ -100,31 +133,41 @@ document.getElementById("sendForm").addEventListener("submit", async (e) => {
     const claimUrl = `${window.location.origin}/claim.html#secret=${secret}&email=${encodeURIComponent(recipientEmail)}&amount=${amount}&message=${encodeURIComponent(message)}`;
 
     // 6. Send email to recipient
-    updateStatus("📧 Sending email to recipient...");
+    updateStatus("Sending email to recipient...");
     const emailSent = await sendEmailToRecipient(recipientEmail, claimUrl, amount, message);
 
     // 7. Show success and the link
-    updateStatus("✅ Escrow link created successfully!");
+    updateStatus("Escrow link created successfully!", false, true);
     linkOutput.style.display = "block";
     linkOutput.innerHTML = `
-      <div style="padding: 20px; background: #e8f5e9; border-radius: 8px;">
-        <h3>🎉 Link Created!</h3>
-        ${emailSent
-          ? `<p style="color: green;">✅ Email sent to ${recipientEmail}</p>`
-          : `<p style="color: orange;">⚠️ Email service unavailable. Please send the link manually.</p>`
-        }
-        <p><strong>Claim link:</strong></p>
-        <div style="background: white; padding: 10px; border-radius: 4px; word-break: break-all; margin: 10px 0;">
-          <code>${claimUrl}</code>
+      <div style="border-radius:14px;border:1px solid rgba(32,199,180,.22);background:rgba(32,199,180,.05);padding:14px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:rgba(32,199,180,.85);box-shadow:0 0 0 3px rgba(32,199,180,.15);"></div>
+          <span style="font-weight:900;font-size:14px;letter-spacing:-.02em;color:rgba(10,21,18,.88);">Link Created</span>
         </div>
-        <button onclick="navigator.clipboard.writeText('${claimUrl}')" style="margin-top: 10px;">
-          📋 Copy Link
-        </button>
-        <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
-          Transaction hash: <code>${receipt.hash}</code>
-        </p>
+        <div style="padding:10px 12px;border-radius:10px;background:${emailSent ? 'rgba(32,199,180,.08)' : 'rgba(255,180,0,.08)'};border:1px solid ${emailSent ? 'rgba(32,199,180,.2)' : 'rgba(255,180,0,.2)'};">
+          <div style="font-weight:900;font-size:14px;color:${emailSent ? 'rgba(16,120,105,.9)' : 'rgba(180,120,0,.9)'};">${emailSent ? 'Email sent to ' + recipientEmail : 'Email unavailable — share the link manually'}</div>
+        </div>
+        <div style="border-radius:10px;border:1px solid rgba(10,21,18,.08);background:rgba(255,255,255,.85);padding:10px;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:rgba(10,21,18,.7);line-height:1.45;">${claimUrl}</div>
+        <button id="copyLinkBtn" type="button" style="width:100%;height:38px;border-radius:10px;border:1px solid rgba(10,21,18,.1);background:rgba(10,21,18,.03);font-weight:800;font-size:13px;color:rgba(10,21,18,.75);cursor:pointer;transition:all .15s ease;">Copy Link</button>
+        <div style="display:flex;align-items:center;gap:6px;padding:0 2px;">
+          <span style="font-size:10px;color:rgba(10,21,18,.4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Tx</span>
+          <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:rgba(10,21,18,.45);word-break:break-all;">${receipt.hash}</span>
+        </div>
       </div>
     `;
+    // Hide the "Next" hint since we're showing the result
+    const nextHint = linkOutput.parentElement.querySelector('.notice:last-of-type');
+    if (nextHint && nextHint.textContent.includes('Next')) nextHint.style.display = 'none';
+    document.getElementById("copyLinkBtn").addEventListener("click", () => {
+      navigator.clipboard.writeText(claimUrl);
+      const btn = document.getElementById("copyLinkBtn");
+      btn.textContent = "Copied!";
+      btn.style.background = "rgba(32,199,180,.1)";
+      btn.style.borderColor = "rgba(32,199,180,.25)";
+      btn.style.color = "rgba(32,199,180,.9)";
+      setTimeout(() => { btn.textContent = "Copy Link"; btn.style.background = ""; btn.style.borderColor = ""; btn.style.color = ""; }, 2000);
+    });
 
   } catch (error) {
     console.error("❌ Error:", error);

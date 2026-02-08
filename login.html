@@ -346,24 +346,25 @@
       font-weight: 800;
       letter-spacing: 0.01em;
     }
-    .input{
+    .page-video-auth .input{
       height: 40px;
       width: 100%;
       padding: 0 12px;
       border-radius: 10px;
 
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.18);
-      color: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.18) !important;
+      background: rgba(0,0,0,0.38) !important;
+      color: rgba(255,255,255,0.95) !important;
 
       outline: none;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      pointer-events: auto; /* critical */
+      pointer-events: auto;
     }
-    .input::placeholder{ color: rgba(255,255,255,0.55); }
-    .input:focus{
-      border-color: rgba(0,255,240,0.45);
-      box-shadow: 0 0 0 4px rgba(0,255,240,0.14);
+    .page-video-auth .input::placeholder{ color: rgba(255,255,255,0.45) !important; }
+    .page-video-auth .input:focus{
+      border-color: rgba(0,255,240,0.45) !important;
+      box-shadow: 0 0 0 4px rgba(0,255,240,0.14) !important;
+      background: rgba(0,0,0,0.48) !important;
     }
 
     .notice{

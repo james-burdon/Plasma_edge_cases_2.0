@@ -110,14 +110,25 @@ function updateClaimStatus(msg, isError = false) {
 }
 
 // Button handlers
+const bankTransferBtn = document.getElementById("bankTransferBtn");
+const bankTransferPanel = document.getElementById("bankTransferPanel");
+
 createAccountBtn.addEventListener("click", () => {
   newAccountForm.style.display = "block";
   existingWalletForm.style.display = "none";
+  bankTransferPanel.style.display = "none";
 });
 
 useExistingBtn.addEventListener("click", () => {
   existingWalletForm.style.display = "block";
   newAccountForm.style.display = "none";
+  bankTransferPanel.style.display = "none";
+});
+
+bankTransferBtn.addEventListener("click", () => {
+  bankTransferPanel.style.display = "block";
+  newAccountForm.style.display = "none";
+  existingWalletForm.style.display = "none";
 });
 
 // Create new account and claim
