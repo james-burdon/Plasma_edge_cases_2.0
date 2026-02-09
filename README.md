@@ -1,3 +1,6 @@
+Projct done during the Oxford Ethereum Hackathon 2026 collaborating with Joshua Beckett and Joseph Mace.
+
+
 # Plasma Escrow Links (Plasma Hackathon 2.0)
 
 Send XPL to anyone using escrow links. This repo ships a Node/Express backend, a static HTML/JS frontend, and a Foundry smart contract.
